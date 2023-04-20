@@ -6,6 +6,8 @@ import Landingpage from './pages/Landingpage';
 import Loginpage from './pages/Loginpage';
 import Registerpage from './pages/Registerpage';
 import Development from './pages/Development';
+// userpage
+import Overview from './pages/user/Overview';
 
 import {
   createBrowserRouter,
@@ -28,6 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/development",
     element: <Development/>,
+  },
+  
+  {
+    path: "/user/overview",
+    element: <Overview/>,
   },
 ]);
 
