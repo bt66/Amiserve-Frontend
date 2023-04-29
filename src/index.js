@@ -6,8 +6,12 @@ import Landingpage from './pages/Landingpage';
 import Loginpage from './pages/Loginpage';
 import Registerpage from './pages/Registerpage';
 import Development from './pages/Development';
+import About from './pages/About';
 // userpage
 import Overview from './pages/user/Overview';
+import DetailProject from './pages/user/DetailProject';
+import DomainAndSsl from './pages/user/DomainAndSSL';
+import Billing from './pages/user/Billing';
 
 import {
   createBrowserRouter,
@@ -18,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Landingpage/>,
+  },
+  {
+    path: "/About",
+    element: <About/>
   },
   {
     path: "/login",
@@ -35,6 +43,18 @@ const router = createBrowserRouter([
   {
     path: "/user/overview",
     element: <Overview/>,
+  },
+  {
+    path: "/user/billing",
+    element: <Billing/>,
+  },
+  {
+    path: "/user/DetailProject",
+    element: <DetailProject/>,
+  },
+  {
+    path: "/user/DomainAndSSL",
+    element: <DomainAndSsl/>,
   },
 ]);
 

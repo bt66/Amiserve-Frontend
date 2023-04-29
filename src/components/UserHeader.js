@@ -11,7 +11,7 @@ export default function UserHeader(props) {
     return (
         <div className='sticky top-0  z-10'>
             {/* sidebar mobile*/}
-            <div className={`absolute bg-black h-screen w-9/12 z-10 ease-in-out duration-300 md:hidden ${showSidebar ? "translate-x-0":"translate-x-[-100%]"}`}>
+            <div className={`absolute bg-black h-screen w-9/12 z-10 ease-in-out duration-300 md:hidden ${showSidebar ? "translate-x-0":"translate-x-[-120%]"}`}>
                 <div className='relative w-full h-full'>
                     <div>
                         <div className='cursor-pointer'>

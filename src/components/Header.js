@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import HamburgerIcon from '../assets/hamburger.svg';
 import AmiserveLogo from '../assets/amiserv.svg'
 import CloseIcon from '../assets/close.svg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef } from 'react';
 
 export default function Header(props) {
     const [showSidebar, setShowSideBar] = useState(false);
+    const navigate = useNavigate();
+
+    const executeScroll = () => {
+        navigate("/")
+        props.serviceRef.current.scrollIntoView()
+    }
     return (
         <div className='sticky top-0 bg-black bg-opacity-30'>
             {/* sidebar mobile*/}
@@ -17,13 +24,17 @@ export default function Header(props) {
                         </div>
                         {/* navbar menu */}
                         <div className='mt-10'>
-                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
-                                <p className='text-2xl text-center'><b>Home</b></p>
-                            </div>
-                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
-                                <p className='text-2xl text-center'><b>About</b></p>
-                            </div>
-                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
+                            <Link to={`/`}>
+                                <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
+                                    <p className='text-2xl text-center'><b>Home</b></p>
+                                </div>
+                            </Link>
+                            <Link to={`/about`}>
+                                <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
+                                    <p className='text-2xl text-center'><b>About</b></p>
+                                </div>
+                            </Link>
+                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md' onClick={executeScroll}>
                                 <p className='text-2xl text-center'><b>Services</b></p>
                             </div>
                         </div>
@@ -58,8 +69,10 @@ export default function Header(props) {
                     <Link to={`/`}>
                         <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>HOME</b></p>
                     </Link>
-                    <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>ABOUT</b></p>
-                    <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>SERVICES</b></p>
+                    <Link to={`/about`}>
+                        <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>ABOUT</b></p>
+                    </Link>
+                    <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300' onClick={executeScroll}><b>SERVICES</b></p>
                 </div>
                 <div className='flex content-center items-center'>
                     <Link to={`/login`}>

@@ -4,8 +4,7 @@ import OverviewIcon from '../assets/overview.svg'
 import PaymentIcon from '../assets/payment.svg'
 import LogoutIcon from '../assets/logout.svg'
 import { Link } from "react-router-dom";
-
-function UserSidebar() {
+function DetailProjectSidebar() {
   return (
     <div className='hidden md:block w-96 h-screen p-4 sticky top-0'>
         <div className='bg-[#462E6C] w-full h-full rounded-2xl relative'>
@@ -18,16 +17,16 @@ function UserSidebar() {
                         </div>
                     </div>
                 </Link>
-                <Link to={`/user/overview`}>
+                <Link to={`/user/DetailProject`}>
                     <div className='hover:bg-[#786891] rounded-xl p-2 flex items-center mt-11 mx-3'>
                         <img src={OverviewIcon} alt='overview'></img>
-                        <p className='text-xl mx-8'><b>Overview</b></p>
+                        <p className='text-xl mx-8'><b>Project</b></p>
                     </div>
                 </Link>
-                <Link to={`/user/billing`}>
+                <Link to={`/user/DomainAndSSL`}>
                     <div className='hover:bg-[#786891] rounded-xl p-2 flex items-center mt-4 mx-3'>
                         <img src={PaymentIcon} alt='billing'></img>
-                        <p className='text-xl mx-8'><b>Billing</b></p>
+                        <p className='text-xl mx-8'><b>Domain & SSL</b></p>
                     </div>
                 </Link>
 
@@ -56,4 +55,4 @@ function UserSidebar() {
   )
 }
 
-export default UserSidebar
+export default DetailProjectSidebar

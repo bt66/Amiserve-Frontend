@@ -4,7 +4,7 @@ import AddIcon from '../../assets/addIcon.svg'
 import SearchIcon from '../../assets/searchIcon.svg'
 import ReactLogo from '../../assets/reactLogo.svg'
 import LinkIcon from '../../assets/linkIcon.svg'
-import UserSidebar from '../../components/UserSidebar'
+import DetailProjectSidebar from '../../components/DetailProjectSidebar'
 // static data
 const overview_content = [
   {
@@ -44,7 +44,7 @@ const overview_content = [
   },
 ]
 
-function Overview() {
+function DomainAndSsl() {
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
@@ -61,11 +61,11 @@ function Overview() {
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
       <div className='flex'>
-        <UserSidebar/>
+        <DetailProjectSidebar/>
         <div className='w-full h-full'>
-          <UserHeader pageTitle="Overview"></UserHeader>
+          <UserHeader pageTitle="Domain & SSL"></UserHeader>
           <div>
-            <div className='flex justify-between p-2'>
+            <div className='flex justify-between'>
               <p className='text-xl lg:text-3xl md:hidden'><b>Overview</b></p>
               <div className='bg-[#8000FF] rounded-md flex px-1 py-2 w-32 sm:hidden'>
                 <img src={AddIcon} className='w-8'></img>
@@ -121,7 +121,7 @@ function Overview() {
                         <p>Service type : {item.service_type}</p>
                         <div className='flex items-center'>
                           <p>Status : </p>
-                          <div className={` w-2 h-2 rounded-full mx-1 ${getstatusColor(item.status)}`}></div>
+                          <div className={`bg-green-400 w-2 h-2 rounded-full mx-1 ${getstatusColor(item.status)}`}></div>
                           <p>{item.status}</p>
                         </div>
                       </div>
@@ -136,4 +136,4 @@ function Overview() {
   )
 }
 
-export default Overview
+export default DomainAndSsl

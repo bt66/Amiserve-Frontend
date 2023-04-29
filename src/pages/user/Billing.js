@@ -9,48 +9,43 @@ import UserSidebar from '../../components/UserSidebar'
 const overview_content = [
   {
     title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
-    status: "Deployed"
+    subscribion: "Daily",
+    total: "10.000",
+    status: "Paid"
   },
   {
     title: "Fp ecommerce backend",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "backend",
-    status: "Update requested"
+    subscribion: "Daily",
+    total: "10.000",
+    status: "Waiting payment"
   },
   {
     title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
+    subscribion: "Daily",
+    total: "10.000",
     status: "Waiting deployment"
   },
   {
     title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
+    subscribion: "Daily",
+    total: "10.000",
     status: "Waiting deployment"
   },
   {
     title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
+    subscribion: "Daily",
+    total: "10.000",
     status: "Waiting deployment"
   },
 ]
 
-function Overview() {
+function Billing() {
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
 
   const getstatusColor = (status) => {
-    if (status === "Deployed"){
+    if (status === "Paid"){
       return 'bg-green-400'
     }else if(status === 'Update requested') {
       return 'bg-[#FFE600]'
@@ -63,7 +58,7 @@ function Overview() {
       <div className='flex'>
         <UserSidebar/>
         <div className='w-full h-full'>
-          <UserHeader pageTitle="Overview"></UserHeader>
+          <UserHeader pageTitle="Billing"></UserHeader>
           <div>
             <div className='flex justify-between p-2'>
               <p className='text-xl lg:text-3xl md:hidden'><b>Overview</b></p>
@@ -102,30 +97,7 @@ function Overview() {
               {/* card */}
                 {
                   overview_content.map((item) => (
-                    <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105'>
-                      <div className='bg-[#3B2164] rounded-xl p-3'>
-                        <div className='flex'>
-                          <div>
-                            <img src={item.logo}></img>
-                          </div>
-                          <div>
-                            <p className='text-xl'><b>Fp ecommerce</b></p>
-                            <div className='flex'>
-                              <img src={LinkIcon}></img>
-                              <div className='w-full'>
-                                <p className=''>{item.url}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <p>Service type : {item.service_type}</p>
-                        <div className='flex items-center'>
-                          <p>Status : </p>
-                          <div className={` w-2 h-2 rounded-full mx-1 ${getstatusColor(item.status)}`}></div>
-                          <p>{item.status}</p>
-                        </div>
-                      </div>
-                    </div>
+                    <div></div>
                   ))
                 }
             </div>
@@ -136,4 +108,4 @@ function Overview() {
   )
 }
 
-export default Overview
+export default Billing
