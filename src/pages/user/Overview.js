@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserHeader from '../../components/UserHeader'
 import AddIcon from '../../assets/addIcon.svg'
 import SearchIcon from '../../assets/searchIcon.svg'
 import ReactLogo from '../../assets/reactLogo.svg'
 import LinkIcon from '../../assets/linkIcon.svg'
 import UserSidebar from '../../components/UserSidebar'
+import AddProjectForm from './AddProjectForm'
 // static data
 const overview_content = [
   {
@@ -58,8 +59,18 @@ function Overview() {
       return 'bg-[#FF0000]'
     }
   }
+  const [openAddProject, SetopenAddProject] = useState(false);
+
+  function handleAddProjectModal() {
+    console.log(openAddProject)
+    SetopenAddProject(!openAddProject)
+  }
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+      
+      <div className={openAddProject ? "hidden" : "block"}>
+        <AddProjectForm handleClose={handleAddProjectModal}></AddProjectForm>
+      </div>
       <div className='flex'>
         <UserSidebar/>
         <div className='w-full h-full'>
@@ -69,7 +80,7 @@ function Overview() {
               <p className='text-xl lg:text-3xl md:hidden'><b>Overview</b></p>
               <div className='bg-[#8000FF] rounded-md flex px-1 py-2 w-32 sm:hidden'>
                 <img src={AddIcon} className='w-8'></img>
-                <div className='flex items-center'>
+                <div className='flex items-center' onClick={handleAddProjectModal}>
                   <p>Add Project</p>
                 </div>
               </div>
@@ -101,8 +112,8 @@ function Overview() {
             <div className='flex max-w-[100rem] flex-wrap'>
               {/* card */}
                 {
-                  overview_content.map((item) => (
-                    <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105'>
+                  overview_content.map((item,index) => (
+                    <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105' key={index}>
                       <div className='bg-[#3B2164] rounded-xl p-3'>
                         <div className='flex'>
                           <div>

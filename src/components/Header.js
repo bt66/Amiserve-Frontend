@@ -12,6 +12,7 @@ export default function Header(props) {
     const executeScroll = () => {
         navigate("/")
         props.serviceRef.current.scrollIntoView()
+        // 
     }
     return (
         <div className='sticky top-0 bg-black bg-opacity-30'>
@@ -45,10 +46,12 @@ export default function Header(props) {
                                 <p className='text-xl text-center'><b>Login</b></p>
                             </div>
                         </Link>
-                        <div className='cursor-pointer p-2 border-2 rounded-md my-4'>
-                        <p className='text-xl text-center'><b>Register</b></p>
-                        </div>
-                        {/* <div className='bg-red-200 w-full h-10 bottom-0 left-0'></div> */}
+                        <Link to={`/register`}>
+                            <div className='cursor-pointer p-2 border-2 rounded-md my-4'>
+                            <p className='text-xl text-center'><b>Register</b></p>
+                            </div>
+                            {/* <div className='bg-red-200 w-full h-10 bottom-0 left-0'></div> */}
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -78,11 +81,13 @@ export default function Header(props) {
                     <Link to={`/login`}>
                         <p className='cursor-pointer text-2xl mx-6 hover:text-gray-300'><b>LOGIN</b></p>
                     </Link>
-                    <div>
-                        <div className='cursor-pointer bg-white px-2 py-3 rounded-md hover:bg-slate-100'>
-                            <p className='text-[#1F004F] text-2xl mx-4'><b>SIGN UP</b></p>
+                    <Link to={`/register`}>
+                        <div>
+                            <div className='cursor-pointer bg-white px-2 py-3 rounded-md hover:bg-slate-100'>
+                                <p className='text-[#1F004F] text-2xl mx-4'><b>SIGN UP</b></p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             

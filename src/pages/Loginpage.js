@@ -38,23 +38,23 @@ function Loginpage() {
                     <form onSubmit={handleSubmit(handleLogin)} className='mt-10'>
                     <div className='flex flex-col justify-center items-center'>
                         <div className='flex flex-col items-center'>
-                        <label htmlFor="email" className='w-full lg:text-xl'><b>Email :</b></label>
-                        <input
-                            type="email" 
-                            name="email"
-                            id='email'
-                            placeholder='Email' 
-                            {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "invalid email address"
-                            }
-                            })}
-                            className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2] lg:px-[1rem] lg:py-4 lg:w-96'/>
-                        <div className='w-full'>
-                            <p className='text-red-400'>{errors.email && errors.email.message}</p>
-                        </div>
+                            <label htmlFor="email" className='w-full lg:text-xl'><b>Email :</b></label>
+                            <input
+                                type="email" 
+                                name="email"
+                                id='email'
+                                placeholder='Email' 
+                                {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "invalid email address"
+                                }
+                                })}
+                                className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2] lg:px-[1rem] lg:py-4 lg:w-96'/>
+                            <div className='w-full'>
+                                <p className='text-red-400'>{errors.email && errors.email.message}</p>
+                            </div>
                         </div>
                         <div className='mt-1 flex flex-col items-center'>
                         <label htmlFor='password' className='w-full lg:text-xl mt-2'><b>Password :</b></label>

@@ -13,10 +13,16 @@ import DetailProject from './pages/user/DetailProject';
 import DomainAndSsl from './pages/user/DomainAndSSL';
 import Billing from './pages/user/Billing';
 
+// 
+import AddProjectForm from './pages/user/AddProjectForm';
+import FormProvider from './context';
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
+// form step 
 
 const router = createBrowserRouter([
   {
@@ -56,14 +62,21 @@ const router = createBrowserRouter([
     path: "/user/DomainAndSSL",
     element: <DomainAndSsl/>,
   },
+  {
+    path: "/user/AddProject",
+    element: <AddProjectForm/>
+  }
+  // form route
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/* <App /> */}
-    {/* <Landingpage/> */}
+    <FormProvider>
+      <RouterProvider router={router} />
+      {/* <App /> */}
+      {/* <Landingpage/> */}
+    </FormProvider>
   </React.StrictMode>
 );
 
