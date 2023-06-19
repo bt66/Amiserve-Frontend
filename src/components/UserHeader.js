@@ -14,23 +14,29 @@ export default function UserHeader(props) {
             <div className={`absolute bg-black h-screen w-9/12 z-10 ease-in-out duration-300 md:hidden ${showSidebar ? "translate-x-0":"translate-x-[-120%]"}`}>
                 <div className='relative w-full h-full'>
                     <div>
-                        <div className='cursor-pointer'>
-                            <img src={AmiserveLogo} alt='amiserveLogo' className='cursor-pointer w-30'></img>
-                        </div>
+                        <Link to='/user/profile'>
+                            <div className='cursor-pointer'>
+                                <img src={AmiserveLogo} alt='amiserveLogo' className='cursor-pointer w-30'></img>
+                            </div>
+                        </Link>
                         {/* navbar menu */}
                         <div className='mt-10'>
-                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md flex justify-start'>
-                                <img src={OverviewIcon} alt='Overview' className='mx-4'></img>
-                                <div className='flex items-center'>
-                                    <p className='text-2xl text-center'><b>Overview</b></p>
+                            <Link to='/user/overview'>
+                                <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md flex justify-start'>
+                                    <img src={OverviewIcon} alt='Overview' className='mx-4'></img>
+                                        <div className='flex items-center'>
+                                            <p className='text-2xl text-center'><b>Overview</b></p>
+                                        </div>
                                 </div>
-                            </div>
-                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md flex justify-start'>
-                                <img src={Billing} alt='Billint' className='mx-4'></img>
-                                <div className='flex items-center'>
-                                    <p className='text-2xl text-center'><b>Billing</b></p>
+                            </Link>
+                            <Link to='/user/billing'>
+                                <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md flex justify-start'>
+                                    <img src={Billing} alt='Billint' className='mx-4'></img>
+                                    <div className='flex items-center'>
+                                        <p className='text-2xl text-center'><b>Billing</b></p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className='absolute bottom-px w-full p-2'>
@@ -50,7 +56,7 @@ export default function UserHeader(props) {
             </div>
             <div className='p-4 flex justify-between md:hidden'>
                 <div className='flex justify-center items-center'>
-                    <p className='text-2xl'><b>Amiserve</b></p>
+                    <p className='text-2xl'><b>Amiserv</b></p>
                 </div>
                 <div className='' onClick={() => setShowSideBar(!showSidebar)}>
                 <img src={showSidebar? CloseIcon : HamburgerIcon} alt='hamburgerIcon' className=''></img>
@@ -63,11 +69,13 @@ export default function UserHeader(props) {
                         <p className='text-3xl'><b>{props.pageTitle}</b></p>
                     </div>
                     {/* profile */}
-                    <div className='rounded-full p-1 bg-[#EE65EE]'>
-                        <div className='bg-black bg-opacity-100 rounded-full w-20 h-20 relative overflow-hidden'>
-                            <img src={AmiserveLogo} alt='profile w-100'></img>
+                    <Link to='/user/profile'>
+                        <div className='rounded-full p-1 bg-[#EE65EE]'>
+                            <div className='bg-black bg-opacity-100 rounded-full w-20 h-20 relative overflow-hidden'>
+                                <img src={AmiserveLogo} alt='profile w-100'></img>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             
