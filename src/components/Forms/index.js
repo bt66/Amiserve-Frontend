@@ -1,5 +1,5 @@
 import BillingInfo from "./BillingInfo";
 import ConfirmPurchase from "./ConfirmPurchase";
-import PersonalInfo from "./PersonalInfo";
-
-export { BillingInfo, ConfirmPurchase, PersonalInfo };
+import ProjectInfo from "./ProjectInfo";
+import DomainAndSSL from "./DomainAndSSL";
+export { BillingInfo, ConfirmPurchase,ProjectInfo, DomainAndSSL };

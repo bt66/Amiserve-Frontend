@@ -7,7 +7,8 @@ import FormCard from "../../components/FormCard";
 import {
   BillingInfo,
   ConfirmPurchase,
-  PersonalInfo,
+  ProjectInfo,
+  DomainAndSSL,
 } from "../../components/Forms";
 
 import FormCompleted from "../../components/FormCompleted";
@@ -16,6 +17,7 @@ const AddProjectForm = ({handleClose}) => {
     const [formStep, setFormStep] = useState(0);
 
     const nextFormStep = () => setFormStep((currentStep) => currentStep + 1);
+    const editDataStep = (step) => setFormStep(step);
 
     const prevFormStep = () => setFormStep((currentStep) => currentStep - 1);
 
@@ -33,16 +35,16 @@ const AddProjectForm = ({handleClose}) => {
                     </div>
                     {/* content */}
                     <div>
-                        <h1>RHF Multi Step Form</h1>
-                        <FormCard currentStep={formStep} prevFormStep={prevFormStep}>
+                        <h1>Please fill the form correctly</h1>
+                        <FormCard currentStep={formStep}  prevFormStep={prevFormStep}>
                             {formStep >= 0 && (
-                            <PersonalInfo formStep={formStep} nextFormStep={nextFormStep} />
+                            <ProjectInfo formStep={formStep} nextFormStep={nextFormStep} />
                             )}
                             {formStep >= 1 && (
-                            <BillingInfo formStep={formStep} nextFormStep={nextFormStep} />
+                            <DomainAndSSL formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep} />
                             )}
                             {formStep >= 2 && (
-                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} />
+                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep} editDataStep={editDataStep} />
                             )}
 
                             {formStep > 2 && <FormCompleted />}

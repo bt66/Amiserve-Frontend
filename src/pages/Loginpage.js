@@ -12,9 +12,9 @@ function Loginpage() {
   const [hidePassword, setHidePassword] = useState(true);
   const [formPasswordType, setFormPasswordType] = useState("password");
 
-  const handleLogin = ((values) => {
-    console.log(values);
-})
+    const handleLogin = ((values) => {
+        console.log(values);
+    })
 
   const handleHideAndShowPassword = (event) => {
     event.preventDefault();

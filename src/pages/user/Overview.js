@@ -68,7 +68,7 @@ function Overview() {
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
       
-      <div className={openAddProject ? "hidden" : "block"}>
+      <div className={openAddProject ? "block" : "hidden"}>
         <AddProjectForm handleClose={handleAddProjectModal}></AddProjectForm>
       </div>
       <div className='flex'>

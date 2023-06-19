@@ -12,7 +12,7 @@ import Overview from './pages/user/Overview';
 import DetailProject from './pages/user/DetailProject';
 import DomainAndSsl from './pages/user/DomainAndSSL';
 import Billing from './pages/user/Billing';
-
+import UserProfile from './pages/user/UserProfile';
 // 
 import AddProjectForm from './pages/user/AddProjectForm';
 import FormProvider from './context';
@@ -65,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: "/user/AddProject",
     element: <AddProjectForm/>
+  },
+  {
+    path: "/user/Profile",
+    element: <UserProfile/>
   }
   // form route
 ]);

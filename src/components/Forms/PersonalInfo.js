@@ -17,7 +17,7 @@ export default function PersonalInfo({ formStep, nextFormStep }) {
   };
 
   return (
-    <div>
+    <div className={formStep === 0 ? "block": "hidden"}>
       <h2>Personal Info</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
