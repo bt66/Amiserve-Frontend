@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserHeader from '../../components/UserHeader'
 import AddIcon from '../../assets/addIcon.svg'
 import SearchIcon from '../../assets/searchIcon.svg'
 import ReactLogo from '../../assets/reactLogo.svg'
 import LinkIcon from '../../assets/linkIcon.svg'
 import DetailProjectSidebar from '../../components/DetailProjectSidebar'
+import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+
+import axios from 'axios';
+
 // static data
 const DetailProjectContent = [
   {
@@ -21,6 +25,37 @@ const DetailProjectContent = [
 ]
 
 function DetailProject() {
+  const [data, setData] = useState();
+  const [fetched, setFeched] = useState(false);
+  const params = useParams();
+
+  useEffect(() => {
+    var config = {
+        method: 'get',
+        url: `${process.env.REACT_APP_BACKEND_URL}/project/${params.idProject}`,
+        // headers: { 
+        // 'Authorization': `Bearer ${localStorage.getItem("token")}`
+        // },
+    };
+    console.log(config)
+    axios(config)
+    .then(response => 
+        {
+            setData(response.data.project)
+            setFeched(true)
+            console.log(data)
+            
+        })
+    .catch(function (error) {
+        console.log(error)
+        // if unauthorized redirect to login
+        // if(error.response.status == 401){
+        //     navigate("/login");
+        // }
+    })
+  },[fetched])
+
+
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
@@ -41,20 +76,19 @@ function DetailProject() {
         <div className='w-full h-full flex flex-col p-2'>
           <UserHeader pageTitle="Project"></UserHeader>
           <div className='w-full h-full  bg-[#9F49F5] p-1 rounded-xl'>
-            {
-              DetailProjectContent.map((item) => (
 
+            {data ? 
                 <div className='bg-[#3B2164] w-full h-full rounded-xl md:flex md:p-10  md:justify-between'>
                   <div>
-                    <p className='text-2xl p-2 md:text-2xl'><b>{item.title}</b></p>
+                    
+                    <p className='text-2xl p-2 md:text-2xl'><b>{data.title}</b></p>
                     <div className='p-3'>
-                      <p className='md:text-xl'>Domain : {item.domain}</p>
-                      <p className='md:text-xl'>Service type : {item.service_type}</p>
-                      <p className='md:text-xl'>Programing Language : {item.programing_language}</p>
+                      <p className='md:text-xl'>Domain : {data.domain.domain_name}</p>
+                      <p className='md:text-xl'>Service type : {data.packet.packet_name}</p>
                       <div className='flex items-center'>
                         <p className='md:text-xl'>Status: </p>
-                        <div className={` w-2 h-2 rounded-full mx-1 md:mx-2 ${getstatusColor(item.Status)}`}></div>
-                        <p className='md:text-xl'>{item.Status}</p>
+                        <div className={` w-2 h-2 rounded-full mx-1 md:mx-2 ${getstatusColor(data.status)}`}></div>
+                        <p className='md:text-xl'>{data.status}</p>
                       </div>
                     </div>
                     <div className='p-3'>
@@ -70,16 +104,18 @@ function DetailProject() {
                     <div>
                       <ul className='list-outside list-disc px-5 mt-2'>
                         {
-                          item.history.map((history) => (
-                            <li>{history}</li>
+                          data.history.map((history) => (
+                            <li key={history._id}>{history.time} - {history.description}</li>
                           ))
                         }
                       </ul>
                     </div>
                   </div>
                 </div>   
-              ))
-            }
+            : 
+            <p></p>}
+                
+
           </div>
         </div>
       </div>

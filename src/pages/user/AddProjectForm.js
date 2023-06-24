@@ -3,6 +3,7 @@ import { useState } from "react";
 import CloseIcon from "../../assets/close.svg";
 
 import FormCard from "../../components/FormCard";
+import { useFormData } from "../../context";
 
 import {
   BillingInfo,
@@ -14,22 +15,30 @@ import {
 import FormCompleted from "../../components/FormCompleted";
 
 const AddProjectForm = ({handleClose}) => {
+    const { clearFormValues } = useFormData();
     const [formStep, setFormStep] = useState(0);
-
     const nextFormStep = () => setFormStep((currentStep) => currentStep + 1);
-    const editDataStep = (step) => setFormStep(step);
+    // const editDataStep = (step) => setFormStep(step);
+    const resetFormStep = () => setFormStep(0);
 
     const prevFormStep = () => setFormStep((currentStep) => currentStep - 1);
 
+    const closeModal = ((event) => {
+        event.preventDefault();
+        resetFormStep()
+        clearFormValues();
+        handleClose();
+    })
+
     return (
-        <div className='p-2 absolute z-20 w-full h-screen bg-black bg-opacity-60'>
-            <div className='bg-[#9F49F5] p-1 rounded-xl'>
-                <div className='bg-[#3B2164] rounded-xl'>
+        <div className='p-2 absolute z-20 w-full h-screen bg-black bg-opacity-60 flex justify-center'>
+            <div className='bg-[#9F49F5] p-1 rounded-xl max-w-2xl h-fit'>
+                <div className='bg-[#3B2164] rounded-xl p-4'>
                     <div className='flex justify-between items-center'>
                         <div>
                             <p className='text-3xl'>Add Project</p>
                         </div>
-                        <div onClick={handleClose}>
+                        <div onClick={closeModal}>
                             <img src={CloseIcon} alt='close Icon'></img>
                         </div>
                     </div>
@@ -44,10 +53,12 @@ const AddProjectForm = ({handleClose}) => {
                             <DomainAndSSL formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep} />
                             )}
                             {formStep >= 2 && (
-                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep} editDataStep={editDataStep} />
+                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep}  resetFormStep={resetFormStep}/>
                             )}
 
-                            {formStep > 2 && <FormCompleted />}
+                            {formStep > 2 && (
+                                <FormCompleted />
+                            )}
                         </FormCard>
                     </div>
                 </div>

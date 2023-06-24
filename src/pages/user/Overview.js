@@ -6,49 +6,42 @@ import ReactLogo from '../../assets/reactLogo.svg'
 import LinkIcon from '../../assets/linkIcon.svg'
 import UserSidebar from '../../components/UserSidebar'
 import AddProjectForm from './AddProjectForm'
-// static data
-const overview_content = [
-  {
-    title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
-    status: "Deployed"
-  },
-  {
-    title: "Fp ecommerce backend",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "backend",
-    status: "Update requested"
-  },
-  {
-    title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
-    status: "Waiting deployment"
-  },
-  {
-    title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
-    status: "Waiting deployment"
-  },
-  {
-    title: "Fp ecommerce",
-    url: "https://fp-ecommerce.amiserve.cloud",
-    logo: ReactLogo,
-    service_type: "Frontend",
-    status: "Waiting deployment"
-  },
-]
+import Loading from '../../components/Loading'
+import { Link, useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 function Overview() {
+
+  const[data, setData] = useState([]);
+  const [fetched, setFeched] = useState(false);
+
+  useEffect(() => {
+    var config = {
+        method: 'get',
+        url: `${process.env.REACT_APP_BACKEND_URL}/project`,
+    };
+    axios(config)
+    .then(response => 
+        {
+            setData(response.data.project)
+            setFeched(true)
+            console.log(data)
+            
+        })
+    .catch(function (error) {
+        console.log(error)
+        // if unauthorized redirect to login
+        // if(error.response.status == 401){
+        //     navigate("/login");
+        // }
+    })
+  },[fetched])
+
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
+  
 
   const getstatusColor = (status) => {
     if (status === "Deployed"){
@@ -67,7 +60,9 @@ function Overview() {
   }
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+
       
+
       <div className={openAddProject ? "block" : "hidden"}>
         <AddProjectForm handleClose={handleAddProjectModal}></AddProjectForm>
       </div>
@@ -101,7 +96,7 @@ function Overview() {
               
               <div className='hidden bg-[#8000FF] rounded-md sm:flex px-1 py-2 w-32 h-12 overflow-hidden'>
                 <img src={AddIcon} className='w-8'></img>
-                <div className='flex items-center'>
+                <div className='flex items-center' onClick={handleAddProjectModal}>
                   <p>Add Project</p>
                 </div>
               </div>
@@ -109,34 +104,37 @@ function Overview() {
           </div>
           {/* content */}
           <div className='flex justify-center items-start'>
+            
             <div className='flex max-w-[100rem] flex-wrap'>
               {/* card */}
                 {
-                  overview_content.map((item,index) => (
-                    <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105' key={index}>
-                      <div className='bg-[#3B2164] rounded-xl p-3'>
-                        <div className='flex'>
-                          <div>
-                            <img src={item.logo}></img>
-                          </div>
-                          <div>
-                            <p className='text-xl'><b>Fp ecommerce</b></p>
-                            <div className='flex'>
-                              <img src={LinkIcon}></img>
-                              <div className='w-full'>
-                                <p className=''>{item.url}</p>
+                  data.map((item) => (
+                    <Link to={`/user/DetailProject/${item._id}`}>
+                      <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105' key={item._id}>
+                        <div className='bg-[#3B2164] rounded-xl p-3'>
+                          <div className='flex'>
+                            <div>
+                              <img src={ReactLogo}></img>
+                            </div>
+                            <div>
+                              <p className='text-xl'><b>{item.title}</b></p>
+                              <div className='flex'>
+                                <img src={LinkIcon}></img>
+                                <div className='w-full'>
+                                  <p className=''>{item.domain.domain_name}</p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <p>Service type : {item.service_type}</p>
-                        <div className='flex items-center'>
-                          <p>Status : </p>
-                          <div className={` w-2 h-2 rounded-full mx-1 ${getstatusColor(item.status)}`}></div>
-                          <p>{item.status}</p>
+                          {/* <p>Packet : {item.packet_name}</p> */}
+                          <div className='flex items-center'>
+                            <p>Status : </p>
+                            <div className={` w-2 h-2 rounded-full mx-1 ${getstatusColor(item.status)}`}></div>
+                            <p>{item.status}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))
                 }
             </div>

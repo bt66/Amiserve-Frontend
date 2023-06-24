@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import React, { useState, useRef } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import HidePasswordIcon from "../assets/passwordHide.svg"
 import ShowPasswordIcon from "../assets/passwordShow.svg"
 import RegisterVector from "../assets/login_vector.svg"
 
+import Loading from '../components/Loading';
+
+import axios from 'axios';
+
 function Loginpage() {
   // const { handleSubmit, register, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+  const loadingRef = useRef();
+
   const { handleSubmit, register, formState: { errors } } = useForm();
 
   const [hidePassword, setHidePassword] = useState(true);
@@ -14,6 +21,47 @@ function Loginpage() {
 
     const handleLogin = ((values) => {
         console.log(values);
+        loadingRef.current.classList.remove('hidden')
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/login`, {
+            email: `${values.email}`,
+            password: `${values.password}`
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((resp => {
+            loadingRef.current.classList.add('hidden')
+            console.log(resp.data)
+            localStorage.setItem('token', resp.data.token);
+            localStorage.setItem('username', resp.data.body.username);
+            console.log(resp.data.body.username)
+            // addNotification({
+            //     title: 'Success',
+            //     subtitle: 'Login Success',
+            //     message: 'You will be redirect to Dashboard ...',
+            //     theme: 'darkgreen',
+            //     native: false // when using native, your OS will handle theming.
+            // })
+            setTimeout((()=> {
+                if(resp.data.body.role === "admin") {
+                    navigate('/admin')
+                }else {
+                    navigate('/user/overview');
+                }
+            }), 1000);
+        })).catch((error) => {
+            console.log(error)
+            loadingRef.current.classList.add('hidden')
+            // addNotification({
+            //     title: 'Error',
+            //     subtitle: "Login error",
+            //     message: 'Incorect Email or Password',
+            //     theme: 'red',
+            //     native: false // when using native, your OS will handle theming.
+            // });
+        })
+        
     })
 
   const handleHideAndShowPassword = (event) => {
@@ -29,6 +77,9 @@ function Loginpage() {
   return (
     <div className='bg-[#380593] absolute w-full h-full text-white'>
         {/* login card container */}
+        <div ref={loadingRef} className="hidden">
+            <Loading/>
+        </div>
         <div className='flex items-center justify-center w-screen h-screen md:justify-center md:p-10'>
             <div className='bg-[#9F49F5] p-1 rounded-3xl md:w-8/12 md:h-10/12 lg:max-w-xl'>
                 <div className='bg-[#41024B] rounded-3xl p-4 md:w-full md:h-full'>

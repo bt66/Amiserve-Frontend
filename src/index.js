@@ -55,17 +55,17 @@ const router = createBrowserRouter([
     element: <Billing/>,
   },
   {
-    path: "/user/DetailProject",
+    path: "/user/DetailProject/:idProject",
     element: <DetailProject/>,
   },
   {
     path: "/user/DomainAndSSL",
     element: <DomainAndSsl/>,
   },
-  {
-    path: "/user/AddProject",
-    element: <AddProjectForm/>
-  },
+  // {
+  //   path: "/user/AddProject",
+  //   element: <AddProjectForm/>
+  // },
   {
     path: "/user/Profile",
     element: <UserProfile/>
@@ -75,13 +75,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <FormProvider>
       <RouterProvider router={router} />
       {/* <App /> */}
       {/* <Landingpage/> */}
     </FormProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
