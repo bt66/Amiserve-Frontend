@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     element: <DetailProject/>,
   },
   {
-    path: "/user/DomainAndSSL",
+    path: "/user/DomainAndSSL/:idProject",
     element: <DomainAndSsl/>,
   },
   // {

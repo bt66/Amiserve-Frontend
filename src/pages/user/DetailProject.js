@@ -72,7 +72,7 @@ function DetailProject() {
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
       <div className='flex h-screen'>
-        <DetailProjectSidebar/>
+        <DetailProjectSidebar idProject={params.idProject}/>
         <div className='w-full h-full flex flex-col p-2'>
           <UserHeader pageTitle="Project"></UserHeader>
           <div className='w-full h-full  bg-[#9F49F5] p-1 rounded-xl'>

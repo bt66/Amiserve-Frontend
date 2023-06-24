@@ -127,7 +127,7 @@ function Loginpage() {
                             <p className='text-red-400'>{errors.password && errors.password.message}</p>
                         </div>
                         </div>
-                        <p className='text-white mt-6'>Already have account? <Link to={'/SignUp'}><span><u>Login</u></span></Link></p>
+                        <p className='text-white mt-6'>Doesn't have account ? <Link to={'/register'}><span><u>register</u></span></Link></p>
                         <div className='flex justify-center items-center'>
                             <button type="submit" className='mt-6 mb-8 lg:mb-10'>
                                 <div className='bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% p-[2px] rounded-full lg:p-[4px]'>

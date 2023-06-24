@@ -30,13 +30,14 @@ function UserSidebar() {
                         <p className='text-xl mx-8'><b>Billing</b></p>
                     </div>
                 </Link>
-
-                <div className=' absolute bottom-4 flex w-full items-center justify-center mt-4'>
-                    <div className='rounded-xl hover:bg-[#786891] w-11/12 flex items-center justify-center'>
-                        <img src={LogoutIcon} alt='logout'></img>
-                        <p className='text-xl mx-8'><b>Logout</b></p>
+                <Link to={`/`}>
+                    <div className=' absolute bottom-4 flex w-full items-center justify-center mt-4'>
+                        <div className='rounded-xl hover:bg-[#786891] w-11/12 flex items-center justify-center'>
+                            <img src={LogoutIcon} alt='logout'></img>
+                            <p className='text-xl mx-8'><b>Logout</b></p>
+                        </div>
                     </div>
-                </div>
+                </Link>
             </div>
             
         </div>
