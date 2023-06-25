@@ -50,20 +50,20 @@ function ProjectInfo({ formStep, nextFormStep }) {
 
       <form onSubmit={handleSubmit(onSubmit)}>
       {/* project title */}
-      <div className='mt-1 flex flex-col p-2'>
-            <label htmlFor='projectTitle' className='w-full lg:text-xl mt-3'><b><span className="text-red-500">*</span>Project Title :</b></label>
-            <div className='relative'>
-              <input 
-              type="text"
-              id='projectTitle'
-              name="projectTitle" 
-              placeholder='Project Title' 
-              {...register("title", {
-                  required: "projectTitle is required",
-              })}
-              className='bg-[#5D2E80] border-[#789AF2] rounded-xl lg:px-[1rem] px-1 py-2  w-full border-2 lg:py-4 lg:w-96'/>
-              <p className='text-red-400'>{errors.projectTitle && errors.projectTitle.message}</p>
-            </div>
+        <div className='mt-1 flex flex-col p-2'>
+          <label htmlFor='projectTitle' className='w-full lg:text-xl mt-3'><b><span className="text-red-500">*</span>Project Title :</b></label>
+          <div className='relative'>
+            <input 
+            type="text"
+            id='projectTitle'
+            name="projectTitle" 
+            placeholder='Project Title' 
+            {...register("title", {
+                required: "projectTitle is required",
+            })}
+            className='bg-[#5D2E80] border-[#789AF2] rounded-xl lg:px-[1rem] px-1 py-2  w-full border-2 lg:py-4 lg:w-96'/>
+            <p className='text-red-400'>{errors.projectTitle && errors.projectTitle.message}</p>
+          </div>
         </div>
         {/* source_code_url */}
         <div className='mt-1 flex flex-col p-2'>
