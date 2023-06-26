@@ -19,7 +19,7 @@ function Overview() {
   useEffect(() => {
     var config = {
         method: 'get',
-        url: `${process.env.REACT_APP_BACKEND_URL}/project`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/project/owner/${localStorage.getItem("userId")}`,
     };
     axios(config)
     .then(response => 
@@ -37,6 +37,7 @@ function Overview() {
         // }
     })
   },[fetched])
+
 
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
@@ -64,7 +65,7 @@ function Overview() {
       
 
       <div className={openAddProject ? "block" : "hidden"}>
-        <AddProjectForm handleClose={handleAddProjectModal}></AddProjectForm>
+        <AddProjectForm handleClose={handleAddProjectModal} fetchedState={setFeched}></AddProjectForm>
       </div>
       <div className='flex'>
         <UserSidebar/>
@@ -110,14 +111,14 @@ function Overview() {
                 {
                   data.map((item) => (
                     <Link to={`/user/DetailProject/${item._id}`}>
-                      <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105' key={item._id}>
+                      <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105 max-w-2xl' key={item._id}>
                         <div className='bg-[#3B2164] rounded-xl p-3'>
                           <div className='flex'>
                             <div>
                               <img src={ReactLogo}></img>
                             </div>
-                            <div>
-                              <p className='text-xl'><b>{item.title}</b></p>
+                            <div className=''>
+                              <p className='text-xl overflow-hidden'><b>{item.title}</b></p>
                               <div className='flex'>
                                 <img src={LinkIcon}></img>
                                 <div className='w-full'>

@@ -34,6 +34,7 @@ function Loginpage() {
             loadingRef.current.classList.add('hidden')
             console.log(resp.data)
             localStorage.setItem('token', resp.data.token);
+            localStorage.setItem('userId', resp.data.body.id);
             localStorage.setItem('username', resp.data.body.username);
             console.log(resp.data.body.username)
             // addNotification({

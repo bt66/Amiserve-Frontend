@@ -5,6 +5,8 @@ import DetailProjectSidebar from '../../components/DetailProjectSidebar'
 import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
 import UpdateProjectCard from '../../components/UpdateProjectForm/UpdateProjectCard';
 import DetailPaymentCard from '../../components/UpdateProjectForm/DetailPaymentCard';
+import ConfirmStopSubscribtion from '../../components/UpdateProjectForm/ConfirmStopSubscribtion';
+
 import axios from 'axios';
 
 // static data
@@ -15,7 +17,7 @@ function DetailProject() {
   const params = useParams();
   const [openModal, setOpenModal] = useState(false);
   const [openModalPayment, setOpenModalPayment] = useState(false);
-
+  const [openModalStopSub, setOpenModalStopSub] = useState(false);
   const handleOpenModal = (event) => {
     // event.preventDefault();
     setOpenModal(!openModal);
@@ -25,6 +27,10 @@ function DetailProject() {
     // event.preventDefault();
     setOpenModalPayment(!openModalPayment);
 
+  }
+  const handleOpenModalStopSubscribtion = (event) => {
+    setOpenModalStopSub(!openModalStopSub)
+    console.log(openModalStopSub)
   }
 
   useEffect(() => {
@@ -69,6 +75,10 @@ function DetailProject() {
   }
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+      <div className={openModalStopSub ? "block" : "hidden"}>
+        {data ? <ConfirmStopSubscribtion handleOpenModal={handleOpenModalStopSubscribtion} data={data}></ConfirmStopSubscribtion> : <p>data doesn't ready</p>}
+        
+      </div>
       <div className={openModal ? "block" : "hidden"}>
         {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data}></UpdateProjectCard> : <p>data doesn't ready</p>}
        
@@ -113,7 +123,7 @@ function DetailProject() {
                       <p className='text-xl md:text-2xl'><b>Action :</b></p>
                       <div>
                         <button className='bg-[#3C47A3] px-3 py-3 rounded-md m-2' onClick={handleOpenModal}>Update Source Code</button>
-                        <button className='bg-[#A33C3C] px-3 py-3 rounded-md m-2'>Stop subscribtion</button>
+                        <button className='bg-[#A33C3C] px-3 py-3 rounded-md m-2' onClick={handleOpenModalStopSubscribtion}>Stop subscribtion</button>
                       </div>
                     </div>
                   </div>

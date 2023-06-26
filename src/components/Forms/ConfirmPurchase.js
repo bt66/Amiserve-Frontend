@@ -4,7 +4,7 @@ import { set, useForm } from "react-hook-form";
 import { useFormData } from "../../context";
 import axios from "axios";
 
-export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, resetFormStep }) {
+export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, resetFormStep,fetchedState }) {
   const { setFormValues } = useFormData();
   const { data } = useFormData();
   const [reqBody, setReqBody] = useState();
@@ -25,6 +25,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
       isFirstRender.current = false;
       return; // 👈️ return early if initial render
     }
+    data.owner_id = localStorage.getItem("userId")
     console.log(data)
     const config = {
       method: 'post',
@@ -41,6 +42,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
       console.log(JSON.stringify(response.data.project));
       // setStatusAddData(true)
       setFormValues({'billing_id':response.data.project._id})
+      fetchedState(false)
       nextFormStep();
     })
     .catch((error) => {
