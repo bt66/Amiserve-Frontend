@@ -80,7 +80,7 @@ function DetailProject() {
         
       </div>
       <div className={openModal ? "block" : "hidden"}>
-        {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data}></UpdateProjectCard> : <p>data doesn't ready</p>}
+        {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data} setFetchState={setFeched}></UpdateProjectCard> : <p>data doesn't ready</p>}
        
       </div>
       <div className={openModalPayment ? "block" : "hidden"}>
@@ -91,9 +91,9 @@ function DetailProject() {
         <DetailProjectSidebar idProject={params.idProject}/>
         <div className='w-full h-full flex flex-col p-2'>
           <UserHeader pageTitle="Project"></UserHeader>
+          {data ? 
           <div className='w-full h-full  bg-[#9F49F5] p-1 rounded-xl'>
 
-            {data ? 
                 <div className='bg-[#3B2164] w-full h-full rounded-xl md:flex md:p-10  md:justify-between'>
                   <div>
                     
@@ -140,11 +140,9 @@ function DetailProject() {
                     </div>
                   </div>
                 </div>   
-            : 
-            <p></p>}
-                
-
-          </div>
+            </div>
+          : 
+          ""}
         </div>
       </div>
     </div>

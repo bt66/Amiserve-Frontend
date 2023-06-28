@@ -46,13 +46,16 @@ function UpdateProjectCard(props) {
 			};
 			
 			loadingRef.current.classList.remove('hidden')
+			props.setFetchState(true)
 			axios.request(config)
 			.then((response) => {
+				props.setFetchState(false)
 				loadingRef.current.classList.add('hidden')
 				console.log(JSON.stringify(response.data));
 				props.handleOpenModal();
 			})
 			.catch((error) => {
+				props.setFetchState(false)
 				loadingRef.current.classList.add('hidden')
 				console.log(error);
 			});

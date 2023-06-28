@@ -38,7 +38,7 @@ function DetailPaymentCard(props) {
 			let config = {
 				method: 'put',
 				maxBodyLength: Infinity,
-				url: `https://api.amiserv.cloud/project/edit/${props.data._id}`,
+				url: `${process.env.REACT_APP_BACKEND_URL}/project/edit/${props.data._id}`,
 				headers: { 
 					'Content-Type': 'application/json'
 				},

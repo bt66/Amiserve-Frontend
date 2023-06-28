@@ -65,7 +65,7 @@ function Overview() {
       
 
       <div className={openAddProject ? "block" : "hidden"}>
-        <AddProjectForm handleClose={handleAddProjectModal} fetchedState={setFeched}></AddProjectForm>
+        <AddProjectForm handleClose={handleAddProjectModal} fetchedState={setFeched} getFetchState={fetched}></AddProjectForm>
       </div>
       <div className='flex'>
         <UserSidebar/>

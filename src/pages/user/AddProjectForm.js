@@ -14,7 +14,7 @@ import {
 
 import FormCompleted from "../../components/FormCompleted";
 
-const AddProjectForm = ({handleClose,fetchedState}) => {
+const AddProjectForm = ({handleClose,fetchedState, getFetchState}) => {
     const { clearFormValues } = useFormData();
     const [formStep, setFormStep] = useState(0);
     const nextFormStep = () => setFormStep((currentStep) => currentStep + 1);
@@ -53,7 +53,7 @@ const AddProjectForm = ({handleClose,fetchedState}) => {
                             <DomainAndSSL formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep} />
                             )}
                             {formStep >= 2 && (
-                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep}  resetFormStep={resetFormStep} fetchedState={fetchedState}/>
+                            <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} prevFormStep={prevFormStep}  resetFormStep={resetFormStep} fetchedState={fetchedState} getFetchState={getFetchState}/>
                             )}
 
                             {formStep > 2 && (

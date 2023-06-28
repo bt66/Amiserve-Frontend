@@ -4,7 +4,7 @@ import { set, useForm } from "react-hook-form";
 import { useFormData } from "../../context";
 import axios from "axios";
 
-export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, resetFormStep,fetchedState }) {
+export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, resetFormStep,fetchedState, getFetchState }) {
   const { setFormValues } = useFormData();
   const { data } = useFormData();
   const [reqBody, setReqBody] = useState();
@@ -36,7 +36,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
       },
       data : data
     };
-    
+    fetchedState(true)
     axios.request(config)
     .then((response) => {
       console.log(JSON.stringify(response.data.project));
@@ -150,7 +150,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
       <div className="my-2 flex items-center justify-between p-1 rounded-md bg-[#5e0370]">
         <div>
           <p className="text-xl font-bold">Domain And SSL</p>
-          <p>SSL Type : {data.ssl_type}</p>
+          <p>SSL Type : {data.ssl_type === "1" ? "Amiserv" : "Self"}</p>
           <p>Domain name : {data.domain_name}</p>
         </div>
         <div>
@@ -168,7 +168,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
           <label htmlFor="checkbox">
             <input
               type="checkbox"
-              value="1"
+              value="0"
               {...register("status_id", { required: true })}
             />
             Data is correct?
