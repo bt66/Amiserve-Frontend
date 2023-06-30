@@ -49,18 +49,6 @@ function UserSidebar() {
             
         </div>
     </div>
-    // <div className='w-96 h-screen p-4'>
-    //     <div className='bg-[#462E6C]'>
-    //         <div className='flex'>
-    //             <img src={LogoAmiserve}></img>
-    //             <div className='flex justify-center items-center'>
-    //                 <p className='text-2xl'><b>Amiserve</b></p>
-    //                 <p></p>
-    //             </div>
-    //         </div>
-
-    //     </div>
-    // </div>
   )
 }
 
