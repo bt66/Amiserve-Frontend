@@ -49,12 +49,22 @@ function UpdateProjectCard(props) {
 			props.setFetchState(true)
 			axios.request(config)
 			.then((response) => {
+				props.setNotification({
+					open: true,
+					message: "Update data success",
+					mode: "success"
+				})
 				props.setFetchState(false)
 				loadingRef.current.classList.add('hidden')
 				console.log(JSON.stringify(response.data));
 				props.handleOpenModal();
 			})
 			.catch((error) => {
+				props.setNotification({
+					open: true,
+					message: "Update data failed",
+					mode: "error"
+				})
 				props.setFetchState(false)
 				loadingRef.current.classList.add('hidden')
 				console.log(error);

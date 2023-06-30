@@ -42,11 +42,21 @@ function UpdatePacketModal(props) {
     props.notifyChangeVar(true)
     axios.request(config)
     .then((response) => {
+      props.setNotification({
+        open: true,
+        message: "Update packet success",
+        mode: "success"
+      })
       props.notifyChangeVar(false)
       console.log(JSON.stringify(response.data));
       props.handleCloseModal()
     })
     .catch((error) => {
+      props.setNotification({
+        open: true,
+        message: "Update packet failed",
+        mode: "error"
+      })
       props.notifyChangeVar(false)
       props.handleCloseModal()
       console.log(error);

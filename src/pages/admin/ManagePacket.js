@@ -23,6 +23,7 @@ import AddPacketModal from '../../components/admin/managePacket/AddPacketModal';
 import ConfirmDeleteModal from '../../components/admin/managePacket/ConfirmDeleteModal';
 import UpdatePacketModal from '../../components/admin/managePacket/UpdatePacketModal';
 import { useNavigate } from 'react-router-dom';
+import AlertNotification from '../../components/AlertNotification';
 import axios from 'axios';
 
 const drawerWidth = 240;
@@ -110,6 +111,11 @@ export default function ManagePacket() {
     description: "",
     price: ""
   });
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: ""
+  });
   const [openModalAdd, setOpenModalAdd] = React.useState(false);
   const handleOpenModalAdd = () => setOpenModalAdd(true);
   const handleCloseModalAdd = () => setOpenModalAdd(false);
@@ -177,6 +183,9 @@ export default function ManagePacket() {
   }else {
     return (
       <Box sx={{ display: 'flex' }}>
+        <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
         <CssBaseline />
         {/* header */}
         <AdminHeader handleDrawerOpen={handleDrawerOpen} open={open}  title="Manage Packet"></AdminHeader>
@@ -242,11 +251,11 @@ export default function ManagePacket() {
           }
         </Box>
         {/* modal add packet */}
-        <AddPacketModal openModalAdd={openModalAdd} handleCloseModal={handleCloseModalAdd} notifyChangeVar={setFetched}></AddPacketModal>
+        <AddPacketModal openModalAdd={openModalAdd} handleCloseModal={handleCloseModalAdd} notifyChangeVar={setFetched} setNotification={setOpenalert}></AddPacketModal>
         {/* modal delete packet */}
-        <ConfirmDeleteModal openModalAdd={openModalDelete} handleCloseModal={handleCloseModalDelete} notifyChangeVar={setFetched} data={deletePacket}></ConfirmDeleteModal>
+        <ConfirmDeleteModal openModalAdd={openModalDelete} handleCloseModal={handleCloseModalDelete} notifyChangeVar={setFetched} data={deletePacket} setNotification={setOpenalert}></ConfirmDeleteModal>
         {/* modal update packet */}
-        <UpdatePacketModal openModalAdd={openModalUpdate} handleCloseModal={handleCloseModalUpdate} notifyChangeVar={setFetched} data={updatePacket}></UpdatePacketModal>
+        <UpdatePacketModal openModalAdd={openModalUpdate} handleCloseModal={handleCloseModalUpdate} notifyChangeVar={setFetched} data={updatePacket} setNotification={setOpenalert}></UpdatePacketModal>
       </Box>
     );
   }

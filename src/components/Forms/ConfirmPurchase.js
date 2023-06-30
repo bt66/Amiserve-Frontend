@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { set, useForm } from "react-hook-form";
 import { useFormData } from "../../context";
+import AlertNotification from "../AlertNotification";
 import axios from "axios";
 
 export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, resetFormStep,fetchedState, getFetchState }) {
@@ -18,6 +19,12 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
     register,
     reset,
   } = useForm({ mode: "all" });
+
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: "success"
+  });
 
   // handle add data 
   useEffect(() => {
@@ -39,6 +46,11 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
     fetchedState(true)
     axios.request(config)
     .then((response) => {
+      setOpenalert({
+        open: true,
+        message: "Add data success",
+        mode: "success"
+      })
       console.log(JSON.stringify(response.data.project));
       // setStatusAddData(true)
       setFormValues({'billing_id':response.data.project._id})
@@ -46,90 +58,27 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
       nextFormStep();
     })
     .catch((error) => {
+      setOpenalert({
+        open: true,
+        message: "Add data failed",
+        mode: "error"
+      })
       console.log(error);
     });
     
   },[reqBody])
-  // handle clean data after success
-  // useEffect(() => {
-  //   if (isFirstRender.current) {
-  //     isFirstRender.current = false;
-  //     return; // 👈️ return early if initial render
-  //   }
-  //   reset({
-  //     domain_name: "",
-  //     domain_type: "",
-  //     packet_type: "",
-  //     source_code_url: "",
-  //     ssl_type: "",
-  //     status_id: "",
-  //     title: ""
-  //   })
-  // }, [statusAddData])
   
   const onSubmit = (values) => {
     setFormValues(values);
     setReqBody(data)
     
-
-    // console.log(data)
-
-    
-  //   var data = JSON.stringify({
-  //     "title": `${values.title}`,
-  //     "source_code_url": `${values.title}`,
-  //     "domain_type": `${values.domain_type}`,
-  //     "domain_name": `${values.domain_name}`,
-  //     "packet_type": `${values.packet_type}`,
-  //     "ssl_type": `${values.ssl_type}`,
-  //     "status_id": `${values.status_id}`
-  //   });
-  //   var config = {
-  //     method: 'post',
-  //     maxBodyLength: Infinity,
-  //     url: `${process.env.REACT_APP_BACKEND_URL}/project/add`,
-  //     headers: { 
-  //       'Content-Type': 'application/json'
-  //     },
-  //     data : data
-  // };
-  
-  // axios.request(config)
-  //     .then(function (response) {
-  //         // loadingRef.current.classList.add('hidden')
-  //         // addNotification({
-  //         //     title: 'Success',
-  //         //     subtitle: 'Upload Success',
-  //         //     theme: 'darkgreen',
-  //         //     native: false // when using native, your OS will handle theming.
-  //         // })
-  //         console.log(JSON.stringify(response.data));
-          
-  //         // setContentData({
-  //         //     ...contentData,
-  //         //     artWorkFile: response.data.url
-  //         // })
-  //         // console.log(contentData.artWorkFile)
-  //         nextFormStep();
-
-  //     })
-  //     .catch(function (error) {
-  //         console.log(error);
-  //         // loadingRef.current.classList.add('hidden')
-  //         // addNotification({
-  //         //     title: 'Error',
-  //         //     subtitle: "Submit Content Error",
-  //         //     message: 'Connection error',
-  //         //     theme: 'red',
-  //         //     native: false // when using native, your OS will handle theming.
-  //         // });
-  //         // loadingRef.current.classList.add('hidden')
-  //     });
-    
   };
 
   return (
     <div className={formStep === 2 ? "block": "hidden"}>
+      <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
       <h2>Confirm Purchase</h2>
       <div className="my-2 flex items-center justify-between p-1 rounded-md bg-[#5e0370]">
         <div>

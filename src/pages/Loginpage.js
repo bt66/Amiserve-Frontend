@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import HidePasswordIcon from "../assets/passwordHide.svg"
 import ShowPasswordIcon from "../assets/passwordShow.svg"
 import RegisterVector from "../assets/login_vector.svg"
+import AlertNotification from '../components/AlertNotification';
 
 import Loading from '../components/Loading';
 
@@ -18,6 +19,11 @@ function Loginpage() {
 
   const [hidePassword, setHidePassword] = useState(true);
   const [formPasswordType, setFormPasswordType] = useState("password");
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: ""
+  });
 
     const handleLogin = ((values) => {
         console.log(values);
@@ -33,17 +39,16 @@ function Loginpage() {
         }).then((resp => {
             loadingRef.current.classList.add('hidden')
             console.log(resp.data)
+            setOpenalert({
+                open: true,
+                message: "login success",
+                mode: "success"
+            })
             localStorage.setItem('token', resp.data.token);
             localStorage.setItem('userId', resp.data.body.id);
             localStorage.setItem('username', resp.data.body.username);
             console.log(resp.data.body.username)
-            // addNotification({
-            //     title: 'Success',
-            //     subtitle: 'Login Success',
-            //     message: 'You will be redirect to Dashboard ...',
-            //     theme: 'darkgreen',
-            //     native: false // when using native, your OS will handle theming.
-            // })
+            
             setTimeout((()=> {
                 if(resp.data.body.role === "admin") {
                     navigate('/admin')
@@ -52,6 +57,11 @@ function Loginpage() {
                 }
             }), 1000);
         })).catch((error) => {
+            setOpenalert({
+                open: true,
+                message: "Login failed",
+                mode: "error"
+            })
             console.log(error)
             loadingRef.current.classList.add('hidden')
             // addNotification({
@@ -78,6 +88,9 @@ function Loginpage() {
   return (
     <div className='bg-[#380593] absolute w-full h-full text-white'>
         {/* login card container */}
+        <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
         <div ref={loadingRef} className="hidden">
             <Loading/>
         </div>

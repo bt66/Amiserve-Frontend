@@ -17,11 +17,21 @@ function ConfirmDeleteModal(props) {
     props.notifyChangeVar(true)
     axios.request(config)
     .then((response) => {
+        props.setNotification({
+          open: true,
+          message: "Delete packet success",
+          mode: "success"
+        })
         props.notifyChangeVar(false)
         props.handleCloseModal()
         console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
+        props.setNotification({
+          open: true,
+          message: "Delete packet failed",
+          mode: "error"
+        })
         props.notifyChangeVar(false)
         props.handleCloseModal()
         console.log(error);

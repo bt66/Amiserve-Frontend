@@ -11,6 +11,7 @@ import Loading from '../../components/Loading';
 import { useForm, Controller } from "react-hook-form";
 import axios from 'axios';
 import { Button } from '@mui/material';
+import AlertNotification from '../../components/AlertNotification';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -91,6 +92,12 @@ export default function AdminDetailProject() {
 			status_id: "0"
 		}
 	});
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: ""
+  });
+  
   // update status
 	const onSubmitUpdateStatus = (values) => {
 			console.log(values)
@@ -106,11 +113,21 @@ export default function AdminDetailProject() {
       setFetched(true)
       axios.request(config)
       .then((response) => {
+        setOpenalert({
+          open: true,
+          message: "Update Status success",
+          mode: "success"
+        })
         setFetched(false)
         setOpenModalUpdate(false)
         console.log(JSON.stringify(response.data));
       })
       .catch((error) => {
+        setOpenalert({
+          open: true,
+          message: "Update Status failed",
+          mode: "error"
+        })
         setFetched(false)
         setOpenModalUpdate(false)
         console.log(error);
@@ -183,6 +200,9 @@ export default function AdminDetailProject() {
   }else {
     return (
       <Box sx={{ display: 'flex', position: "relative" }}>
+        <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
         <div ref={loadingRef} className="hidden">
             <Loading/>
         </div>

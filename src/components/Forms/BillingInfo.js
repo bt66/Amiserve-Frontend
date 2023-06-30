@@ -1,6 +1,8 @@
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useFormData } from "../../context";
+import AlertNotification from "../AlertNotification";
 
 export default function BillingInfo({ formStep, nextFormStep }) {
   const { setFormValues } = useFormData();
@@ -15,9 +17,17 @@ export default function BillingInfo({ formStep, nextFormStep }) {
     setFormValues(values);
     nextFormStep();
   };
-
+  const [openAlert, setOpenalert] = useState({
+    open: true,
+    message: "",
+    mode: ""
+  });
+  
   return (
     <div >
+      <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
       <h2>Billing Info</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>

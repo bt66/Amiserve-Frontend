@@ -7,6 +7,7 @@ import UpdateProjectCard from '../../components/UpdateProjectForm/UpdateProjectC
 import DetailPaymentCard from '../../components/UpdateProjectForm/DetailPaymentCard';
 import ConfirmStopSubscribtion from '../../components/UpdateProjectForm/ConfirmStopSubscribtion';
 import { useNavigate } from 'react-router-dom';
+import AlertNotification from '../../components/AlertNotification';
 
 import axios from 'axios';
 
@@ -34,7 +35,12 @@ function DetailProject() {
     setOpenModalStopSub(!openModalStopSub)
     console.log(openModalStopSub)
   }
-
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: ""
+  });
+  
   useEffect(() => {
     var config = {
         method: 'get',
@@ -80,12 +86,15 @@ function DetailProject() {
   }else {
     return (
       <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+        <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
         <div className={openModalStopSub ? "block" : "hidden"}>
           {data ? <ConfirmStopSubscribtion handleOpenModal={handleOpenModalStopSubscribtion} data={data}></ConfirmStopSubscribtion> : <p>data doesn't ready</p>}
           
         </div>
         <div className={openModal ? "block" : "hidden"}>
-          {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data} setFetchState={setFeched}></UpdateProjectCard> : <p>data doesn't ready</p>}
+          {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data} setFetchState={setFeched} setNotification={setOpenalert}></UpdateProjectCard> : <p>data doesn't ready</p>}
         
         </div>
         <div className={openModalPayment ? "block" : "hidden"}>
