@@ -127,11 +127,6 @@ function Landingpage() {
                     </div>
                   </div>
                 </div>
-                {/* <div className=' mt-9 flex justify-center'>
-                  <div className='bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 md:w-60 flex justify-center rounded-full p-4 cursor-pointer border-2 md:mt-10 hover:scale-105'>
-                    <p className='text-sm md:text-xl'><b>Coba sekarang!</b></p>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -147,11 +142,6 @@ function Landingpage() {
                 </div>
               </div>
             </div>
-            {/* <div className=' mt-9 flex justify-center'>
-              <div className='bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 flex justify-center rounded-full p-4 cursor-pointer border-2'>
-                <p className='text-sm'>Coba sekarang!</p>
-              </div>
-            </div> */}
           </div>
         </div>
         {/* content 2 */}
@@ -190,7 +180,6 @@ function Landingpage() {
                 </div>
                 <p className='text-xl mx-3 my-2'><b>Frontend Deployment</b></p>
               </div>
-
               <div className='flex items-center flex-col mt-10'>
                 <div className='bg-[#7A1EA6] w-32 h-32 p-1 rounded-full'>
                   <div className='bg-[#534267] w-full h-full rounded-full flex items-center justify-center'>

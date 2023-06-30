@@ -4,6 +4,7 @@ import AmiserveLogo from '../assets/amiserv.svg'
 import FaizProfile from '../assets/faiz.jpeg'
 import AzizProfile from '../assets/aziz.jpeg'
 import BasProfile from "../assets/bastian.jpeg"
+import SatyaProfile from "../assets/satya.jpeg"
 import Footer from '../components/Footer'
 const team = [
     {
@@ -13,7 +14,7 @@ const team = [
         role: "Project Owner",
     },
     {
-        image: FaizProfile,
+        image: SatyaProfile,
         alternative: "satya",
         name: "Satya Tegar Kusuma",
         role: "Scrum Master",
