@@ -9,9 +9,12 @@ export default function Header(props) {
     const [showSidebar, setShowSideBar] = useState(false);
     const navigate = useNavigate();
 
+
+    const executeScrollHome = () => {
+        navigate("/", { state: { targetId: "homepage" } });
+    }
     const executeScroll = () => {
-        navigate("/")
-        props.serviceRef.current.scrollIntoView()
+        navigate("/", { state: { targetId: "service" } }); 
         // 
     }
     return (
@@ -25,11 +28,9 @@ export default function Header(props) {
                         </div>
                         {/* navbar menu */}
                         <div className='mt-10'>
-                            <Link to={`/`}>
-                                <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
-                                    <p className='text-2xl text-center'><b>Home</b></p>
-                                </div>
-                            </Link>
+                            <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md' onClick={executeScrollHome}>
+                                <p className='text-2xl text-center'><b>Home</b></p>
+                            </div>
                             <Link to={`/about`}>
                                 <div className='cursor-pointer p-2 m-2 hover:bg-[#7A1EA6] rounded-md'>
                                     <p className='text-2xl text-center'><b>About</b></p>
@@ -57,7 +58,7 @@ export default function Header(props) {
             </div>
             <div className='p-4 flex justify-between md:hidden'>
                 <div className='flex justify-center items-center'>
-                    <p className='text-2xl'><b>Amiserve</b></p>
+                    <p className='text-2xl'><b>Amiserv</b></p>
                 </div>
                 <div className='' onClick={() => setShowSideBar(!showSidebar)}>
                 <img src={showSidebar? CloseIcon : HamburgerIcon} alt='hamburgerIcon' className=''></img>
@@ -69,9 +70,9 @@ export default function Header(props) {
                     <img src={AmiserveLogo} alt='amiserveLogo'></img>
                 </div>
                 <div className='flex'>
-                    <Link to={`/`}>
-                        <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>HOME</b></p>
-                    </Link>
+
+                    <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300' onClick={executeScrollHome}><b>HOME</b></p>
+
                     <Link to={`/about`}>
                         <p className='cursor-pointer text-2xl mx-4 hover:text-gray-300'><b>ABOUT</b></p>
                     </Link>

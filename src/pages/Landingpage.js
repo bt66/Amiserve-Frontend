@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Header from '../components/Header'
 import VectorImage from '../assets/landingpage_main.svg';
 import ShieldLock from '../assets/shield_lock.svg';
@@ -19,6 +19,7 @@ import FrontendLogo from "../assets/coding.svg"
 import BackendLogo from "../assets/backend.svg"
 import DatabaseLogo from "../assets/database.svg"
 import Footer from '../components/Footer';
+import { useLocation } from 'react-router-dom';
 // static content
 const daily = [
   {
@@ -102,9 +103,19 @@ const serviceIcon = [
 
 
 function Landingpage() {
-  const serviceReference = useRef();
+  // const serviceReference = useRef();
+  // const homeReference = useRef();
   const [pricingBtn, setPricingBtn] = useState(false);
+  const { state } = useLocation();
+  const { targetId } = state || {};
 
+  useEffect(() => {
+    // console.log(targetId)
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({behavior: "smooth", block: "start"});
+    }
+  }, [targetId]);
 
   return (
     // <div className='bg-gradient-to-r from-[#5715B1] from-10% to-[#1F004F] to-90% w-full h-full absolute'>
@@ -112,12 +123,12 @@ function Landingpage() {
     // </div>
     <div className='bg-gradient-to-r from-[#5715B1] from-10% to-[#1F004F] to-90% w-full h-max absolute text-white'>
       {/* tagline */}
-      <div className='relative'>
-        <Header serviceRef={serviceReference}></Header>
+      <div className='relative' id='homepage'>
+        <Header></Header>
         <div className='p-4 flex flex-col md:flex-row'>
           <div className='md:flex md:flex-col md:items-center md:justify-center'>
             <div className='md:max-w-4xl'>
-              <p className='text-center text-xl sm:text-3xl lg:text-5xl'>Solusi <b>SERVER HEMAT</b> Biaya untuk <b>FINAL PROJECT</b> Anda!</p>
+              <p className='text-center text-xl sm:text-3xl lg:text-5xl' >Solusi <b>SERVER HEMAT</b> Biaya untuk <b>FINAL PROJECT</b> Anda!</p>
               <div className='hidden md:block'>
                 <p className='text-center mt-4 sm:text-2xl'>Kami menawarkan solusi hosting dan server terkelola yang mudah dan murah bagi Final Project Anda.</p>
                 <div className='flex justify-center mt-10 md:mt-20'>
@@ -147,7 +158,7 @@ function Landingpage() {
         {/* content 2 */}
         <div className='p-4 mt-10 md:flex md:flex-col md:justify-center md:items-center'>
           <div className='md:max-w-4xl'>
-            <p className='text-xl text-center md:text-3xl lg:text-5xl md:m-10 lg:mt-52'><b>Just focus on your code and let Amiserve deploy your Project</b></p>
+            <p className='text-xl text-center md:text-3xl lg:text-5xl md:m-10 lg:mt-52'><b>Just focus on your code and let Amiserv deploy your Project</b></p>
 
             <p className='text-center mt-4 md:text-xl lg:text-2xl md:mt-6 lg:mt-32'>Anda hanya perlu memberitahu kami tentang kebutuhan untuk final project anda sehingga kami mengetahui apa yang anda butuhkan, selanjutnya anda dapat berfokus kepada pengembangan aplikasi tanpa perlu memikirkan server dan pemeliharaan.</p>
           </div>
@@ -167,7 +178,7 @@ function Landingpage() {
         </div>
         {/* our service */}
         <div>
-          <p className='text-center text-2xl mt-20 lg:mt-56 lg:text-6xl' ref={serviceReference}><b>Our service</b></p>
+          <p className='text-center text-2xl mt-20 lg:mt-56 lg:text-6xl' id='service'><b>Our service</b></p>
           {/* list service container */}
           <div className='flex justify-center'>
 
@@ -201,7 +212,7 @@ function Landingpage() {
           </div>
         </div>
         {/* content 3 */}
-        <p className='text-2xl text-center mt-10 md:text-3xl lg:text-5xl lg:mt-52 md:m-10'><b>Why choose Amiserve?</b></p>
+        <p className='text-2xl text-center mt-10 md:text-3xl lg:text-5xl lg:mt-52 md:m-10'><b>Why choose Amiserv?</b></p>
         <p className='text-xl text-center mt-5 md:text-2xl lg:text-3xl lg:my-14'><b>Key Features</b></p>
 
         {/* card  container*/}
@@ -258,9 +269,17 @@ function Landingpage() {
             <p className='text-center text-2xl md:text-3xl lg:text-5xl'><b>Need Custom more resource for business need?</b></p>
             <p className='text-center mt-4 md:text-xl md:mt-10 lg:text-3xl lg:mt-20'>If you need some custom service which not listed on pricing for bussines need in example like kubernetes, scallable, loadbalancer, ci/cd, and etc. please contact me.</p>
             <div className='flex justify-center items-center'>
-              <div className='flex justify-around rounded-xl bg-[#513976] w-48 h-20 mt-10 lg:mt-32 lg:mb-28'>
-                <img src={WhatsappIcon} alt='whatsapp_icon' className='cursor-pointer w-14'></img>
-                <img src={MailIcon} alt='mail_icon' className='cursor-pointer w-16'></img>
+              <div className='flex justify-around items-center rounded-xl bg-[#513976] w-48 h-20 mt-10 lg:mt-32 lg:mb-28'>
+                <div>
+                  <a target="_blank" href="https://wa.me/+6285158447601">
+                    <img src={WhatsappIcon} alt='whatsapp_icon' className='cursor-pointer w-14'></img>
+                  </a>
+                </div>
+                <div>
+                  <a target="_blank" href="mailto: contact@amiserv.cloud">
+                    <img src={MailIcon} alt='mail_icon' className='cursor-pointer w-16'></img>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

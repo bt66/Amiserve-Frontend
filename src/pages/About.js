@@ -62,7 +62,7 @@ function About() {
                 <div className='mt-16 sm:flex item-center justify-around'>
                     {
                         team.map((item, index) => (
-                            <div className='mt-4'>
+                            <div className='mt-4' key={index}>
                                 <div className='flex item-center justify-center'>
                                     <div className='flex w-32 h-32 md:w-36 md:h-36 lg:h-44 lg:w-44 items-center justify-center overflow-hidden rounded-full bg-red-200'>
                                         <img src={item.image} alt={item.alternative} id={index} className='w-40 object-fill'></img>
