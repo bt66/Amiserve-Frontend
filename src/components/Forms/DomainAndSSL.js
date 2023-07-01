@@ -1,6 +1,8 @@
-
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useFormData } from "../../context";
+
+import axios from "axios";
 
 export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
   const { setFormValues } = useFormData();
@@ -9,60 +11,105 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
     handleSubmit,
     formState: { errors },
     register,
+    getValues,
   } = useForm({ mode: "all" });
 
   const onSubmit = (values) => {
     setFormValues(values);
-    console.log(values)
+    // console.log(values)
     nextFormStep();
   };
+
+  const [domainMode, setDomainMode] = useState("false")
+
+  const handleInputChange = (event) => {
+    const {name, value} = event.target;
+    // console.log(value)
+    setDomainMode((value))
+    console.log(domainMode)
+  }
 
   return (
     <div className={formStep === 1 ? "block": "hidden"}>
       <h2>Domain And SSL</h2>
+      {/* true === amiserv subdomain, false === self domain */}
+      <form>
+      <label htmlFor='projectTitle' className='w-full lg:text-xl mt-3'><b>Domain name :</b></label>
+      <p>Please choose domain type : </p>
+        {/* domain mode 0 : amiserv , 1 self */}
+        <input 
+          type="radio"
+          id='domainMode-amiserv'
+          name="mode" 
+          placeholder='Project Title'
+          value="0"
+          onChange={handleInputChange}
+          {...register("domain_type", {
+            required: "Domain type is required",
+        })}
+          className=''/>
+          <label htmlFor="domainMode-amiserv">Amiserv subdomain</label>
 
+          <br></br>
+          <input 
+            type="radio"
+            id='domainMode-self'
+            name="mode"
+            placeholder='Project Title'
+            value="1"
+            onChange={handleInputChange}
+            {...register("domain_type", {
+              required: "Domain type is required",
+          })}
+            className=''/>
+          <label htmlFor="domainMode-self">Your own domain</label>
+
+      </form>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mt-1 flex flex-col p-2'>
-            <label htmlFor='projectTitle' className='w-full lg:text-xl mt-3'><b>Project Title :</b></label>
+            
             <div className='relative'>
-                <input 
+              <input
                 type="text"
-                id='projectTitle'
-                name="projectTitle" 
-                placeholder='Project Title' 
-                {...register("projectTitle", {
-                    required: "projectTitle is required",
+                id='domain_name'
+                name="domain_name" 
+                placeholder={domainMode ==="true" ? "fpsatu.amiserv.cloud" : "example.com"}
+                {...register("domain_name", {
+                    required: "Domain name is required",
                 })}
-                className='bg-[#5D2E80] border-[#789AF2] rounded-xl lg:px-[1rem] px-1 py-2  w-full border-2 lg:py-4 lg:w-96'/>
-                <p className='text-red-400'>{errors.projectTitle && errors.projectTitle.message}</p>
-
+                className={'bg-[#5D2E80] border-[#789AF2] rounded-xl lg:px-[1rem] px-1 py-2  w-full border-2 lg:py-4 lg:w-96'}/>
+              <p className='text-red-400'>{errors.domain_name && errors.domain_name.message}</p>
+                  
                 {/* <select {...register("sslMode", { required: true })}>
                   <option value="cloudflare-ssl">cloudflare</option>
                   <option value="letsencrypt-ssl">Letsencrypt</option>
                 </select> */}
+                {/* 1 - amiserv , 2 - self*/}
+                <p>Please choose ssl certificate : </p>
                 <input 
-                type="radio"
-                id='ssl-type1'
-                name="ssl-type1" 
-                placeholder='Project Title'
-                value="lets_encrypt"
-                {...register("ssl_type", {
-                    required: "ssl-type is required",
-                })}
-                className=''/>
-                <label htmlFor="ssl-type1">Lets encrypt</label>
+                  type="radio"
+                  id='ssl-type1'
+                  name="ssl-type1" 
+                  placeholder='Project Title'
+                  value="1"
+                  {...register("ssl_type", {
+                      required: "ssl-type is required",
+                  })}
+                  className=''/>
+                  <label htmlFor="ssl-type1">Amiserv</label>
+                {/* <label htmlFor="ssl-type1">Lets encrypt</label> */}
                 <br/>
                 <input 
-                type="radio"
-                id='ssl-type1'
-                name="ssl-type1" 
-                placeholder='Project Title' 
-                value="cloudflare"
-                {...register("ssl_type", {
-                    required: "ssl-type is required",
-                })}
-                className=''/>
-                <label htmlFor="ssl-type1">Cloudflare proxy</label>
+                  type="radio"
+                  id='ssl-type2'
+                  name="ssl-type1" 
+                  placeholder='Project Title' 
+                  value="2"
+                  {...register("ssl_type", {
+                      required: "ssl-type is required",
+                  })}
+                  className=''/>
+                  <label htmlFor="ssl-type2">Self</label>
             </div>
         </div>
         <div className="flex justify-between p-3">

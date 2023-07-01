@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserHeader from '../../components/UserHeader'
 import AddIcon from '../../assets/addIcon.svg'
 import SearchIcon from '../../assets/searchIcon.svg'
 import ReactLogo from '../../assets/reactLogo.svg'
 import LinkIcon from '../../assets/linkIcon.svg'
 import DetailProjectSidebar from '../../components/DetailProjectSidebar'
+import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+import axios from 'axios'
 // static data
 const overview_content = [
   {
@@ -45,6 +47,35 @@ const overview_content = [
 ]
 
 function DomainAndSsl() {
+  const [data, setData] = useState();
+  const [fetched, setFeched] = useState(false);
+  const params = useParams();
+
+  useEffect(() => {
+    var config = {
+        method: 'get',
+        url: `${process.env.REACT_APP_BACKEND_URL}/project/${params.idProject}`,
+        // headers: { 
+        // 'Authorization': `Bearer ${localStorage.getItem("token")}`
+        // },
+    };
+    console.log(config)
+    axios(config)
+    .then(response => 
+        {
+            setData(response.data.project)
+            setFeched(true)
+            console.log(data)
+            
+        })
+    .catch(function (error) {
+        console.log(error)
+        // if unauthorized redirect to login
+        // if(error.response.status == 401){
+        //     navigate("/login");
+        // }
+    })
+  },[fetched])
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
@@ -61,7 +92,7 @@ function DomainAndSsl() {
   return (
     <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
       <div className='flex'>
-        <DetailProjectSidebar/>
+        <DetailProjectSidebar idProject={params.idProject}/>
         <div className='w-full h-full'>
           <UserHeader pageTitle="Domain & SSL"></UserHeader>
           <div>

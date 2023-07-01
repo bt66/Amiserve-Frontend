@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import Landingpage from './pages/Landingpage';
 import Loginpage from './pages/Loginpage';
 import Registerpage from './pages/Registerpage';
-import Development from './pages/Development';
 import About from './pages/About';
 // userpage
 import Overview from './pages/user/Overview';
@@ -16,6 +15,14 @@ import UserProfile from './pages/user/UserProfile';
 // 
 import AddProjectForm from './pages/user/AddProjectForm';
 import FormProvider from './context';
+
+// admin
+import AdminDashboard from './pages/admin/AdminDashboard';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import ManageUser from './pages/admin/ManageUser';
+import ManageProject from './pages/admin/ManageProject';
+import ManagePacket from './pages/admin/ManagePacket';
+import AdminDetailProject from './pages/admin/AdminDetailProject';
 
 import {
   createBrowserRouter,
@@ -42,11 +49,6 @@ const router = createBrowserRouter([
     element: <Registerpage/>,
   },
   {
-    path: "/development",
-    element: <Development/>,
-  },
-  
-  {
     path: "/user/overview",
     element: <Overview/>,
   },
@@ -55,36 +57,62 @@ const router = createBrowserRouter([
     element: <Billing/>,
   },
   {
-    path: "/user/DetailProject",
+    path: "/user/DetailProject/:idProject",
     element: <DetailProject/>,
   },
   {
-    path: "/user/DomainAndSSL",
+    path: "/user/DomainAndSSL/:idProject",
     element: <DomainAndSsl/>,
   },
-  {
-    path: "/user/AddProject",
-    element: <AddProjectForm/>
-  },
+  // {
+  //   path: "/user/AddProject",
+  //   element: <AddProjectForm/>
+  // },
   {
     path: "/user/Profile",
     element: <UserProfile/>
+  },
+  // admin route
+  {
+    path: "/admin",
+    element: <AdminDashboard/>
+  },
+  {
+    path: "/admin/ManageUser",
+    element: <ManageUser/>
+  },
+  {
+    path: "/admin/ManageProject",
+    element: <ManageProject/>
+  },
+  {
+    path: "/admin/ManagePacket",
+    element: <ManagePacket/>
+  },
+  {
+    path: "/admin/ManageProject/:idProject",
+    element: <AdminDetailProject/>
   }
-  // form route
 ]);
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <ThemeProvider theme={darkTheme}>
     <FormProvider>
       <RouterProvider router={router} />
       {/* <App /> */}
       {/* <Landingpage/> */}
     </FormProvider>
-  </React.StrictMode>
-);
+  </ThemeProvider>
+  // <React.StrictMode>
+  // </React.StrictMode>
+)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -61,13 +61,7 @@ function Billing() {
           <UserHeader pageTitle="Billing"></UserHeader>
           <div>
             <div className='flex justify-between p-2'>
-              <p className='text-xl lg:text-3xl md:hidden'><b>Overview</b></p>
-              <div className='bg-[#8000FF] rounded-md flex px-1 py-2 w-32 sm:hidden'>
-                <img src={AddIcon} className='w-8'></img>
-                <div className='flex items-center'>
-                  <p>Add Project</p>
-                </div>
-              </div>
+              <p className='text-xl lg:text-3xl md:hidden'><b>Billing</b></p>
             </div>
             <div className='p-2 sm:flex sm:justify-around lg:justify-center'>
               <form className='basis-5/6 sm:basis-10/12 lg:basis-11/12 px-1'>
@@ -83,12 +77,6 @@ function Billing() {
                 </div>
               </form>
               
-              <div className='hidden bg-[#8000FF] rounded-md sm:flex px-1 py-2 w-32 h-12 overflow-hidden'>
-                <img src={AddIcon} className='w-8'></img>
-                <div className='flex items-center'>
-                  <p>Add Project</p>
-                </div>
-              </div>
             </div>
           </div>
           {/* content */}

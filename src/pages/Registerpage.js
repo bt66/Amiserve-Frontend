@@ -1,18 +1,46 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import HidePasswordIcon from "../assets/passwordHide.svg"
 import ShowPasswordIcon from "../assets/passwordShow.svg"
 import RegisterVector from "../assets/register_vector.svg"
-
+import axios from 'axios';
 function Registerpage() {
   // const { handleSubmit, register, formState: { errors } } = useForm();
   const { handleSubmit, register, formState: { errors } } = useForm();
-
+  const navigate = useNavigate();
   const [hidePassword, setHidePassword] = useState(true);
   const [formPasswordType, setFormPasswordType] = useState("password");
 
   const handleLogin = ((values) => {
+    let data = JSON.stringify({
+        "email": `${values.email}`,
+        "username": `${values.username}`,
+        "password": `${values.password}`,
+        "firstname": "",
+        "lastname": "",
+        "nomor": `${values.nomor}`
+    });
+        
+    let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `${process.env.REACT_APP_BACKEND_URL}/user/register`,
+    headers: { 
+        'Content-Type': 'application/json'
+    },
+        data : data
+    };
+        
+    axios.request(config)
+    .then((response) => {
+        console.log(JSON.stringify(response.data));
+        navigate("/login")
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+      
     console.log(values);
 })
 
@@ -36,25 +64,25 @@ function Registerpage() {
                     <p className='text-3xl text-center lg:mt-10'><b>SignUp</b></p>
                     </div>
                     <form onSubmit={handleSubmit(handleLogin)} className='mt-10'>
-                    <div className='flex flex-col justify-center items-center'>
-                        <div className='flex flex-col items-center'>
-                        <label htmlFor="email" className='w-full lg:text-xl'><b>Email :</b></label>
-                        <input
-                            type="email" 
-                            name="email"
-                            id='email'
-                            placeholder='Email' 
-                            {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "invalid email address"
-                            }
-                            })}
-                            className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2] lg:px-[1rem] lg:py-4 lg:w-96'/>
-                        <div className='w-full'>
-                            <p className='text-red-400'>{errors.email && errors.email.message}</p>
-                        </div>
+                        <div className='flex flex-col justify-center items-center'>
+                            <div className='flex flex-col items-center'>
+                            <label htmlFor="email" className='w-full lg:text-xl'><b>Email :</b></label>
+                            <input
+                                type="email" 
+                                name="email"
+                                id='email'
+                                placeholder='Email' 
+                                {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "invalid email address"
+                                }
+                                })}
+                                className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2] lg:px-[1rem] lg:py-4 lg:w-96'/>
+                            <div className='w-full'>
+                                <p className='text-red-400'>{errors.email && errors.email.message}</p>
+                            </div>
                         </div>
                         <div className='mt-1 flex flex-col items-center'>
                             <label htmlFor='username' className='w-full lg:text-xl mt-3'><b>Username :</b></label>
@@ -71,27 +99,42 @@ function Registerpage() {
                                 <p className='text-red-400'>{errors.username && errors.username.message}</p>
                             </div>
                         </div>
+                        
+                        <div className='flex'>
+                        </div>
                         <div className='mt-1 flex flex-col items-center'>
-                        <label htmlFor='password' className='w-full lg:text-xl mt-2'><b>Password :</b></label>
-                        <div className='relative'>
+                            <label htmlFor='nomor' className='w-full lg:text-xl mt-3'><b>Phone number :</b></label>
+                            <div className='relative'>
                             <input 
-                            type={formPasswordType}
-                            id='password'
-                            name="password" 
-                            placeholder='Password' 
-                            {...register("password", {
-                                required: "Password is required",
-                            })}
-                            className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2]  lg:px-[1rem] lg:py-4 lg:w-96'/>
-                            <div className='absolute top-0 right-0 w-8 h-full flex justify-center items-center mr-2' onClick={handleHideAndShowPassword}>
-                                <img src={hidePassword ? HidePasswordIcon : ShowPasswordIcon} className=''></img>
+                                type="number" 
+                                placeholder="Phone number" 
+                                {...register("nomor", {required: true, minLength: 6, maxLength: 12})} 
+                                className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2] lg:px-[1rem] lg:py-4 lg:w-96'/>
+        
+                                <p className='text-red-400'>{errors.nomor && errors.nomor.message}</p>
                             </div>
                         </div>
-                        <div className='w-full h-full'>
-                            <p className='text-red-400'>{errors.password && errors.password.message}</p>
+                        <div className='mt-1 flex flex-col items-center'>
+                            <label htmlFor='password' className='w-full lg:text-xl mt-2'><b>Password :</b></label>
+                            <div className='relative'>
+                                <input 
+                                type={formPasswordType}
+                                id='password'
+                                name="password" 
+                                placeholder='Password' 
+                                {...register("password", {
+                                    required: "Password is required",
+                                })}
+                                className='bg-[#5D2E80] px-3 py-2 rounded-xl w-full border-2 border-[#789AF2]  lg:px-[1rem] lg:py-4 lg:w-96'/>
+                                <div className='absolute top-0 right-0 w-8 h-full flex justify-center items-center mr-2' onClick={handleHideAndShowPassword}>
+                                    <img src={hidePassword ? HidePasswordIcon : ShowPasswordIcon} className=''></img>
+                                </div>
+                            </div>
+                            <div className='w-full h-full'>
+                                <p className='text-red-400'>{errors.password && errors.password.message}</p>
+                            </div>
                         </div>
-                        </div>
-                        <p className='text-white mt-6'>Already have account? <Link to={'/SignUp'}><span><u>Login</u></span></Link></p>
+                        <p className='text-white mt-6'>Already have account? <Link to={'/login'}><span><u>Login</u></span></Link></p>
                         <div className='flex justify-center items-center'>
                             <button type="submit" className='mt-6 mb-8 lg:mb-10'>
                                 <div className='bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% p-[2px] rounded-full lg:p-[4px]'>

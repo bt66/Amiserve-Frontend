@@ -13,8 +13,13 @@ export default function FormProvider({ children }) {
     console.log(data)
   };
 
+  const clearFormValues = (values) => {
+    setData({});
+    console.log(data)
+  };
+
   return (
-    <FormContext.Provider value={{ data, setFormValues }}>
+    <FormContext.Provider value={{ data, setFormValues, clearFormValues }}>
       {children}
     </FormContext.Provider>
   );
