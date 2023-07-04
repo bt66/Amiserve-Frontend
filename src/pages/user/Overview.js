@@ -104,25 +104,25 @@ function Overview() {
               </div>
             </div>
             {/* content */}
-            <div className='flex justify-center items-start'>
+            <div className='flex justify-center items-start w-full'>
               
-              <div className='flex max-w-[100rem] flex-wrap'>
+              <div className='flex flex-col flex-wrap w-full'>
                 {/* card */}
                   {
                     data.map((item) => (
                       <Link to={`/user/DetailProject/${item._id}`}>
-                        <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-105 max-w-2xl' key={item._id}>
-                          <div className='bg-[#3B2164] rounded-xl p-3'>
+                        <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-100' key={item._id}>
+                          <div className='bg-[#3B2164] rounded-xl p-3 lg:flex justify-between'>
                             <div className='flex'>
                               <div>
                                 <img src={ReactLogo}></img>
                               </div>
-                              <div className=''>
-                                <p className='text-xl overflow-hidden'><b>{item.title}</b></p>
-                                <div className='flex'>
+                              <div className='lg:flex lg:items-center w-[800px] lg:justify-between'>
+                                <p className='text-xl overflow-hidden lg:text-3xl'><b>{item.title}</b></p>
+                                <div className='flex items-center'>
                                   <img src={LinkIcon}></img>
                                   <div className='w-full'>
-                                    <p className=''>{item.domain.domain_name}</p>
+                                    <a href={`https://${item.domain.domain_name}`} target='_blank' className=''>{item.domain.domain_name}</a>
                                   </div>
                                 </div>
                               </div>
