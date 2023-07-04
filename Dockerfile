@@ -5,8 +5,10 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 # RUN npm ci --silent
+RUN npm i @emotion/react @emotion/styled
 RUN npm install --legacy-peer-deps
 COPY . ./
+
 RUN npm run build
 
 # production environment
