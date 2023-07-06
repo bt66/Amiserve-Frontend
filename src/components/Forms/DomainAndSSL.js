@@ -20,13 +20,20 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
     nextFormStep();
   };
 
-  const [domainMode, setDomainMode] = useState("false")
+  const [domainMode, setDomainMode] = useState("")
 
   const handleInputChange = (event) => {
     const {name, value} = event.target;
-    // console.log(value)
-    setDomainMode((value))
-    console.log(domainMode)
+    console.log(value)
+    setDomainMode(value)
+  }
+
+  const [sslMode, setSslMode] = useState("")
+
+  const handleInputChangeSsl = (event) => {
+    const {name, value} = event.target;
+    console.log(value)
+    setSslMode(value)
   }
 
   return (
@@ -43,7 +50,7 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
           name="mode" 
           placeholder='Project Title'
           value="0"
-          onChange={handleInputChange}
+          onClick={handleInputChange}
           {...register("domain_type", {
             required: "Domain type is required",
         })}
@@ -57,7 +64,7 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
             name="mode"
             placeholder='Project Title'
             value="1"
-            onChange={handleInputChange}
+            onClick={handleInputChange}
             {...register("domain_type", {
               required: "Domain type is required",
           })}
@@ -73,7 +80,7 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
                 type="text"
                 id='domain_name'
                 name="domain_name" 
-                placeholder={domainMode ==="true" ? "fpsatu.amiserv.cloud" : "example.com"}
+                placeholder={domainMode ==="0" ? "fpsatu.amiserv.cloud" : "example.com"}
                 {...register("domain_name", {
                     required: "Domain name is required",
                 })}
@@ -92,6 +99,7 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
                   name="ssl-type1" 
                   placeholder='Project Title'
                   value="1"
+                  onClick={handleInputChangeSsl}
                   {...register("ssl_type", {
                       required: "ssl-type is required",
                   })}
@@ -105,11 +113,32 @@ export default function DomainAndSSL({ formStep, nextFormStep, prevFormStep }) {
                   name="ssl-type1" 
                   placeholder='Project Title' 
                   value="2"
+                  onClick={handleInputChangeSsl}
                   {...register("ssl_type", {
                       required: "ssl-type is required",
                   })}
                   className=''/>
                   <label htmlFor="ssl-type2">Self</label>
+
+                <br/>
+                {sslMode === '2' ?
+                <div>
+                  <input
+                  type="text"
+                  id='ssl_cert_file'
+                  name="ssl_cert_file" 
+                  placeholder="SSL cert url"
+                  {...register("ssl_cert_file", {
+                      required: "SSL cert file is required when you choose self",
+                  })}
+                  className={'bg-[#5D2E80] border-[#789AF2] rounded-xl lg:px-[1rem] px-1 py-2  w-full border-2 lg:py-4 lg:w-96'}/>
+                  <p className='text-red-400'>{errors.ssl_cert_file && errors.ssl_cert_file.message}</p>
+
+                </div>
+                  :
+                  <p></p>
+                }
+
             </div>
         </div>
         <div className="flex justify-between p-3">
