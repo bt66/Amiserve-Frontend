@@ -23,6 +23,8 @@ const AddProjectForm = ({handleClose,fetchedState, getFetchState}) => {
 
     const prevFormStep = () => setFormStep((currentStep) => currentStep - 1);
 
+    const editFormStep = (step) => setFormStep((step))
+
     const closeModal = ((event) => {
         event.preventDefault();
         resetFormStep()
@@ -31,8 +33,8 @@ const AddProjectForm = ({handleClose,fetchedState, getFetchState}) => {
     })
 
     return (
-        <div className='p-2 absolute z-20 w-full h-screen bg-black bg-opacity-60 flex justify-center'>
-            <div className='bg-[#9F49F5] p-1 rounded-xl max-w-2xl h-fit'>
+        <div className='p-2 absolute z-20 w-full h-full bg-black bg-opacity-60 flex justify-center'>
+            <div className='bg-[#9F49F5] p-1 rounded-xl w-full max-w-md h-fit'>
                 <div className='bg-[#3B2164] rounded-xl p-4'>
                     <div className='flex justify-between items-center'>
                         <div>
@@ -44,7 +46,12 @@ const AddProjectForm = ({handleClose,fetchedState, getFetchState}) => {
                     </div>
                     {/* content */}
                     <div>
-                        <h1>Please fill the form correctly</h1>
+                        {
+                            formStep === 3 ?
+                            <p>Create project success</p>
+                            :
+                            <h1>Please fill the form correctly</h1>
+                        }
                         <FormCard currentStep={formStep}  prevFormStep={prevFormStep}>
                             {formStep >= 0 && (
                             <ProjectInfo formStep={formStep} nextFormStep={nextFormStep} />

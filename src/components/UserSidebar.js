@@ -14,7 +14,7 @@ function UserSidebar() {
         navigete('/')
     }
   return (
-    <div className='hidden md:block w-96 h-screen p-4 sticky top-0'>
+    <div className='hidden md:block w-96 h-screen p-4 sticky top-0 right-0'>
         <div className='bg-[#462E6C] w-full h-full rounded-2xl relative'>
             <div className='flex flex-col p-1'>
                 <Link to={`/user/overview`}>

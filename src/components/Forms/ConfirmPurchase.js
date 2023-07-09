@@ -75,7 +75,7 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
   };
 
   return (
-    <div className={formStep === 2 ? "block": "hidden"}>
+    <div className={`${formStep === 2 ? "block": "hidden"}`}>
       <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
             <p>{openAlert.message}</p>
         </AlertNotification>
@@ -88,13 +88,13 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
           {/* <p>Description : {data.description}</p> */}
           <p>Packet : {data.packet_type}</p>
         </div>
-        <div>
+        {/* <div>
           <button type="submit" className="bg-[#6400CC] px-5 py-1 rounded-md" >
-              <div>
+              <div >
                   <p>Edit</p>
               </div>
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="my-2 flex items-center justify-between p-1 rounded-md bg-[#5e0370]">
         <div>
@@ -102,13 +102,13 @@ export default function ConfirmPurchase({ formStep, nextFormStep, prevFormStep, 
           <p>SSL Type : {data.ssl_type === "1" ? "Amiserv" : "Self"}</p>
           <p>Domain name : {data.domain_name}</p>
         </div>
-        <div>
+        {/* <div>
           <button type="submit" className="bg-[#6400CC] px-5 py-1 rounded-md" >
-              <div>
+              <div >
                   <p>Edit</p>
               </div>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>

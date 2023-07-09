@@ -75,8 +75,8 @@ function Overview() {
     navigate("/login");
   }else {
     return (
-      <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
-        <div className={openAddProject ? "block" : "hidden"}>
+      <div className='relative bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+        <div className={`${openAddProject ? "block" : "hidden"}`}>
           <AddProjectForm handleClose={handleAddProjectModal} fetchedState={setFeched} getFetchState={fetched}></AddProjectForm>
         </div>
         <div className='flex'>
