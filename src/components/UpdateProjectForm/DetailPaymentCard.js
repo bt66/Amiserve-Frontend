@@ -63,7 +63,7 @@ function DetailPaymentCard(props) {
 		<div className='p-2 absolute z-20 w-screen h-screen bg-black bg-opacity-60'>
 			<div className='flex justify-center'>
 
-				<div className='bg-[#9F49F5] p-1 rounded-xl w-11/12 max-w-4xl h-fit'>
+				<div className='bg-[#9F49F5] p-1 rounded-xl w-11/12 max-w-md h-fit'>
 					<div className='bg-[#3B2164] rounded-xl'>
 							{/* content container */}
 							<div className='p-3'>
@@ -89,14 +89,14 @@ function DetailPaymentCard(props) {
 										<p>BRI : 90830-234234</p>
 										<p>Mandiri : 90830-234234</p>
 										<p>And confirm payment with the following link : </p>
-										<div className='flex item-center justify-center'>
+										<p className='text-red-500'>note : Dont forget to attach transfer invoice</p>
+										<div className='flex item-center justify-center mt-5 mb-10'>
 											<a target="_blank" href={`https://wa.me/+6285158447601/?text=Amiserv%20payment%20confirmation%20for%20${props.data._id}`}>
 												<div className='bg-[#3C47A3] hover:bg-[#252e7a] px-4 py-2 rounded-md w-60'>
 													<p className='text-center'>Confirm Payment</p>
 												</div>
 											</a>
 										</div>
-										<p>note : Dont forget to attach transfer invoice</p>
 									</div>
 								<div>
 							</div>

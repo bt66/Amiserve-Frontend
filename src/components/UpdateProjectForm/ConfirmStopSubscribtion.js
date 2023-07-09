@@ -29,12 +29,12 @@ function ConfirmStopSubscribtion(props) {
   }
   return (
     <div className='p-2 absolute z-20 w-screen h-screen bg-black bg-opacity-60'>
-      <div className='flex justify-center'>
-        <div className='bg-[#9F49F5] p-1 rounded-xl w-11/12 max-w-4xl h-fit'>
+      <div className='flex justify-center items-center'>
+        <div className='bg-[#9F49F5] p-1 rounded-xl w-11/12 max-w-md h-fit'>
           <div className='bg-[#3B2164] rounded-xl'>
                 {/* content container */}
                 <div className='p-3'>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between'>
                     <div>
                             
                       <p className='text-2xl lg:text-3xl font-bold'>Confirm</p>
