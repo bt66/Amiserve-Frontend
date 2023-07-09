@@ -43,13 +43,13 @@ function About() {
             <div className='md:flex md:justify-around md:items-center'>
                 <div className='md:flex md:flex-col'>
                     <div>
-                        <p className='text-5xl text-center mt-10 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D7F4] to-[#FFFFFF] max-w-md lg:text-7xl'>Amiserve</p>
+                        <p className='text-5xl text-center mt-10 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D7F4] to-[#FFFFFF] max-w-md lg:text-7xl'>Amiserv</p>
                     </div>
                     <div className='items-center justify-center flex md:hidden'>
                         <img src={AmiserveLogo} alt='amiserve' className='w-52'></img>
                     </div>
                     <div>
-                        <p className='text-xl text-center mt-5 md:max-w-md lg:text-2xl lg:mt-16'>Amiserve is a Software as a Service  developed by no_sh team, we responsible for hosting, maintaining, and updating service tht you have.</p>
+                        <p className='text-xl text-center mt-5 md:max-w-md lg:text-2xl lg:mt-16'>Amiserve is a Software as a Service  developed by no_sh team, we responsible for hosting, maintaining, and updating service that you have.</p>
                     </div>
                 </div>
                 <div className='hidden md:block'>
@@ -68,9 +68,12 @@ function About() {
                                         <img src={item.image} alt={item.alternative} id={index} className='w-40 object-fill'></img>
                                     </div>
                                 </div>
-                                <div className='mt-2'>
-                                    <p className='text-center w-32 md:w-36 lg:w-44 lg:text-2xl'><b>{item.name}</b></p>
-                                    <p className='text-center lg:text-xl lg:mt-3'>{item.role}</p>
+                                <div className='flex items-center justify-center'>
+                                    <div className='mt-2'>
+                                        <p className='text-center w-32 md:w-36 lg:w-44 lg:text-2xl'><b>{item.name}</b></p>
+                                        <p className='text-center lg:text-xl lg:mt-3'>{item.role}</p>
+                                    </div>
+                                
                                 </div>
                             </div>
                         ))
