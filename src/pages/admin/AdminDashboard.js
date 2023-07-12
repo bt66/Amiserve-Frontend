@@ -69,24 +69,47 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [fetched,setFetched] = useState();
-  const [projectCount, setProjectCount] = useState({
-    "project_dihentikan" : 0,
-    "project_expired" : 0,
-    "project_dibuat" : 0,
-    "pembayaran_diverifikasi" : 0
-  });
+
+
+  // project info
+  const [project_dihentikan,set_project_dihentikan] = useState(0);
+  const [project_expired,set_project_expired] = useState(0);
+  const [project_dibuat,set_project_dibuat] = useState(0);
+  const [pembayaran_diverifikasi,set_pembayaran_diverifikasi] = useState(0);
+  // const [projectCount, setProjectCount] = useState({
+  //   "project_dihentikan" : 0,
+  //   "project_expired" : 0,
+  //   "project_dibuat" : 0,
+  //   "pembayaran_diverifikasi" : 0
+  // });
 
   useEffect(() => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `${process.env.REACT_APP_BACKEND_URL}/project/`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/project/count`,
     };
     axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data.project));
-      response.data.project.map((data) => {
-        console.log(data)
+      console.log(JSON.stringify(response.data));
+      response.data.map((data) => {
+        if(data._id==="0") {
+          set_project_dibuat(data.count)
+          console.log(project_dibuat)
+        }
+        if(data._id==="1") {
+          set_pembayaran_diverifikasi(data.count)
+          console.log(pembayaran_diverifikasi)
+        }
+        if(data._id==="-1") {
+          set_project_expired(data.count)
+          console.log(project_expired)
+        }
+        if(data._id==="-2") {
+          set_project_dihentikan(data.count)
+          console.log(project_dihentikan)
+        }
+        
       })
     })
     .catch((error) => {
@@ -129,10 +152,10 @@ export default function AdminDashboard() {
                 
               }}
             >
-              <CardProjectStatus title="Project dibuat" count={`${projectCount.project_dibuat}`} color="secondary.dark"></CardProjectStatus>
-              <CardProjectStatus title="Project Dihentikan" count={`${projectCount.project_dibuat}`} color="error.dark"></CardProjectStatus>
-              <CardProjectStatus title="Project expired" count={`${projectCount.project_dibuat}`} color="warning.dark"></CardProjectStatus>
-              <CardProjectStatus title="Pembayaran diverifikasi" count={`${projectCount.project_dibuat}`} color="success.dark"></CardProjectStatus>
+              <CardProjectStatus title="Project dibuat" count={`${project_dibuat}`} color="secondary.dark"></CardProjectStatus>
+              <CardProjectStatus title="Project Dihentikan" count={`${project_dihentikan}`} color="error.dark"></CardProjectStatus>
+              <CardProjectStatus title="Project expired" count={`${project_expired}`} color="warning.dark"></CardProjectStatus>
+              <CardProjectStatus title="Pembayaran diverifikasi" count={`${pembayaran_diverifikasi}`} color="success.dark"></CardProjectStatus>
             </Container>
             {/* box status unpaid */}
           </Container>

@@ -10,12 +10,13 @@ import Loading from '../../components/Loading'
 import { Link, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import { PostAddSharp } from '@mui/icons-material'
 
 function Overview() {
   const navigate = useNavigate();
   const[data, setData] = useState([]);
   const [fetched, setFeched] = useState(false);
-
+  const [searchData, setSearchData] = useState('');
   useEffect(() => {
     var config = {
         method: 'get',
@@ -42,7 +43,18 @@ function Overview() {
   useEffect(() => {
     document.body.style.backgroundColor ="#1F004F"
   })
-  
+
+  const handleInputChange = (event) => {
+    const {name, value} = event.target;
+    console.log(value)
+    setSearchData(value)
+    // console.log(data)
+    // const results = data.filter(item => {
+    //   if(value === "") return item
+    //   return item.title.toLowerCase().includes(value)
+    // })
+    console.log(setSearchData)
+  }
 
   const getstatusColor = (status) => {
     if (status === "Deployed"){
@@ -63,8 +75,8 @@ function Overview() {
     navigate("/login");
   }else {
     return (
-      <div className='absolute bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
-        <div className={openAddProject ? "block" : "hidden"}>
+      <div className='relative bg-[#1F004F] w-screen h-screen overflow-auto text-white'>
+        <div className={`${openAddProject ? "block" : "hidden"}`}>
           <AddProjectForm handleClose={handleAddProjectModal} fetchedState={setFeched} getFetchState={fetched}></AddProjectForm>
         </div>
         <div className='flex'>
@@ -86,8 +98,10 @@ function Overview() {
                   <div className='relative'>
                     <input 
                       type='text'
-                      placeholder='search'
+                      placeholder='search by project title'
                       className='bg-[#604A82] rounded-md h-12 w-full p-3'
+                      name="search"
+                      onChange={handleInputChange}
                     />
                     <div className='absolute top-0 right-1 w-10 h-full flex items-center'>
                       <img src={SearchIcon}></img>
@@ -109,15 +123,18 @@ function Overview() {
               <div className='flex flex-col flex-wrap w-full'>
                 {/* card */}
                   {
-                    data.map((item) => (
-                      <Link to={`/user/DetailProject/${item._id}`}>
+                    data.filter((item) => {
+                      return searchData.toLowerCase() ==='' ? item: item.title.toLowerCase().includes(searchData)
+                    })
+                    .map((item) => (
+                      <Link to={`/user/DetailProject/${item._id}`} key={item._id}>
                         <div className='bg-[#9F49F5] p-1 rounded-xl m-2 hover:scale-100' key={item._id}>
                           <div className='bg-[#3B2164] rounded-xl p-3 lg:flex justify-between'>
                             <div className='flex'>
                               <div>
                                 <img src={ReactLogo}></img>
                               </div>
-                              <div className='lg:flex lg:items-center w-[800px] lg:justify-between'>
+                              <div className='lg:flex lg:items-center lg:w-[800px] lg:justify-between'>
                                 <p className='text-xl overflow-hidden lg:text-3xl'><b>{item.title}</b></p>
                                 <div className='flex items-center'>
                                   <img src={LinkIcon}></img>

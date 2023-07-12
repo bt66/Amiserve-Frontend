@@ -20,6 +20,8 @@ import BackendLogo from "../assets/backend.svg"
 import DatabaseLogo from "../assets/database.svg"
 import Footer from '../components/Footer';
 import { useLocation } from 'react-router-dom';
+
+import axios from 'axios';
 // static content
 const daily = [
   {
@@ -106,6 +108,9 @@ function Landingpage() {
   // const serviceReference = useRef();
   // const homeReference = useRef();
   const [pricingBtn, setPricingBtn] = useState(false);
+  const [fetched, setFetched] = useState();
+  const [dataPacket, setDataPacket] = useState();
+
   const { state } = useLocation();
   const { targetId } = state || {};
 
@@ -117,6 +122,27 @@ function Landingpage() {
     }
   }, [targetId]);
 
+
+  useEffect(() => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://api.amiserv.cloud/packet',
+      headers: { 
+        'Content-Type': 'application/json'
+      }
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      // console.log(JSON.stringify(response.data));
+      console.log(response.data.packet)
+      setDataPacket(response.data.packet)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, [fetched])
   return (
     // <div className='bg-gradient-to-r from-[#5715B1] from-10% to-[#1F004F] to-90% w-full h-full absolute'>
     //   <p>hello</p>
@@ -131,13 +157,15 @@ function Landingpage() {
               <p className='text-center text-xl sm:text-3xl lg:text-5xl' >Solusi <b>SERVER HEMAT</b> Biaya untuk <b>FINAL PROJECT</b> Anda!</p>
               <div className='hidden md:block'>
                 <p className='text-center mt-4 sm:text-2xl'>Kami menawarkan solusi hosting dan server terkelola yang mudah dan murah bagi Final Project Anda.</p>
-                <div className='flex justify-center mt-10 md:mt-20'>
-                  <div className='cursor-pointer p-1 bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 md:w-60 rounded-full hover:scale-105 duration-200'>
-                    <div className='bg-gradient-to-r from-[#7A1EA6] from-2% via-[#3F3DA4] via-50% to-[#3F3DA4] to-90% rounded-full p-4'>
-                      <p className='text-xl text-center md:text-2xl'>Coba Sekarang!</p>
+                <Link to='/register'>
+                  <div className='flex justify-center mt-10 md:mt-20'>
+                    <div className='cursor-pointer p-1 bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 md:w-60 rounded-full hover:scale-105 duration-200'>
+                      <div className='bg-gradient-to-r from-[#7A1EA6] from-2% via-[#3F3DA4] via-50% to-[#3F3DA4] to-90% rounded-full p-4'>
+                        <p className='text-xl text-center md:text-2xl'>Coba Sekarang!</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -146,13 +174,15 @@ function Landingpage() {
           </div>
           <div className='md:hidden'>
             <p className='text-center mt-4 sm:text-2xl'>Kami menawarkan solusi hosting dan server terkelola yang mudah dan murah bagi Final Project Anda.</p>
-            <div className='flex justify-center mt-10 md:mt-20'>
-              <div className='cursor-pointer p-1 bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 md:w-60 rounded-full hover:scale-105 duration-200'>
-                <div className='bg-gradient-to-r from-[#7A1EA6] from-2% via-[#3F3DA4] via-50% to-[#3F3DA4] to-90% rounded-full p-4'>
-                  <p className='text-md text-center md:text-2xl'>Coba Sekarang!</p>
+            <Link to='/register'>
+              <div className='flex justify-center mt-10 md:mt-20'>
+                <div className='cursor-pointer p-1 bg-gradient-to-r from-[#EE65EE] from-2% via-[#8000FF] via-50% to-[#8000FF] to-90% w-40 md:w-60 rounded-full hover:scale-105 duration-200'>
+                  <div className='bg-gradient-to-r from-[#7A1EA6] from-2% via-[#3F3DA4] via-50% to-[#3F3DA4] to-90% rounded-full p-4'>
+                    <p className='text-md text-center md:text-2xl'>Coba Sekarang!</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         {/* content 2 */}
@@ -236,7 +266,7 @@ function Landingpage() {
         <div>
           <p className='text-center text-2xl mt-10 md:text-3xl md:mt-20  md:mb-10 lg:text-5xl lg:mt-52'><b>Pricing</b></p>
           {/* button */}
-          <div className='flex justify-center mt-4 lg:mt-24'>
+          {/* <div className='flex justify-center mt-4 lg:mt-24'>
             <div className='flex md:m-5'>
               <div className={`bg-[#4C2383] w-32 p-2 md:p-5 md:w-52 transition-all duration-500 ${pricingBtn ? "bg-[#4C2383]" : "bg-[#8000FF]"}`}  onClick={() => setPricingBtn(false)}>
                 <p className='text-center md:text-2xl'>Daily</p>
@@ -245,22 +275,36 @@ function Landingpage() {
                 <p className='text-center md:text-2xl'>Monthly</p>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* pricing card  container*/}
           <div className='p-2 flex flex-nowrap overflow-x-auto md:justify-center lg:mt-20'>
             {/* card pricing */}
-            {(pricingBtn ? monthly:daily).map((item, index) => (
-            <div key={index} className='flex-none p-2 hover:scale-105'>
-              <div className='bg-[#60477D] rounded-lg border-4 border-[#7A1EA6] flex flex-col justify-center w-52 max-h-80 h-72 p-3'>
-                <p className='text-4xl'>
-                  <b>Rp. {item.price}.<span className='text-2xl'>000</span></b>
-                </p>
-                <p className='text-2xl mt-4'><b>{item.packet_name}</b></p>
-                <p className='text-lg mt-3'>{item.benefit}</p>
+            {/* {(pricingBtn ? monthly:daily).map((item, index) => (
+              <div key={index} className='flex-none p-2 hover:scale-105'>
+                <div className='bg-[#60477D] rounded-lg border-4 border-[#7A1EA6] flex flex-col justify-center w-52 max-h-80 h-72 p-3'>
+                  <p className='text-4xl'>
+                    <b>Rp. {item.price}.<span className='text-2xl'>000</span></b>
+                  </p>
+                  <p className='text-2xl mt-4'><b>{item.packet_name}</b></p>
+                  <p className='text-lg mt-3'>{item.benefit}</p>
+                </div>
               </div>
+            ))} */}
+            {dataPacket ?
+             dataPacket.map((item, index) => (
+              <div key={index} className='flex  p-2 hover:scale-105'>
+                <div className='bg-[#60477D] rounded-lg border-4 border-[#7A1EA6] flex flex-col justify-center w-52 max-h-80 h-72 p-3 overflow-hidden text-ellipsis hover:overflow-visible hover:h-96 whitespace-nowrap hover:whitespace-normal'>
+                  <p className='text-4xl'>
+                    <b>Rp. {item.price}</b>
+                  </p>
+                  <p className='text-2xl mt-4'><b>{item.name}</b></p>
+                  <p className='text-lg mt-3 h-10 whitespace-normal'>{item.description}</p>
+                </div>
               </div>
-              ))
-            }
+            ))
+            : 
+            <p>no data</p>
+          }
           </div>
         </div>
         {/* contact container */}

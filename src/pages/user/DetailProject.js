@@ -107,7 +107,6 @@ function DetailProject() {
             <UserHeader pageTitle="Project"></UserHeader>
             {data ? 
             <div className='w-full h-full  bg-[#9F49F5] p-1 rounded-xl'>
-
                   <div className='bg-[#3B2164] w-full h-full rounded-xl md:flex md:p-10  md:justify-between'>
                     <div>
                       
@@ -117,7 +116,7 @@ function DetailProject() {
                           <p className='text-xl font-bold'>Domain and SSL Information :</p>
                           <li>Domain type : {data.domain.domain_type}</li>
                           <li>Domain name : {data.domain.domain_name}</li>
-                          <li>SSL tyle : {data.ssl.ssl_type}</li>
+                          <li>SSL type : {data.ssl.ssl_type}</li>
                         </div>
                         <div className='mt-1 lg:mt-3 max-w-md'>
                           <p className='text-xl font-bold'>Current Status :</p>

@@ -21,7 +21,7 @@ function DetailProjectSidebar(props) {
                         <div className='flex'>
                             <img src={LogoAmiserve}></img>
                             <div className='flex justify-center items-center'>
-                                <p className='text-2xl'><b>Amiserve</b></p>
+                                <p className='text-2xl'><b>Amiserv</b></p>
                             </div>
                         </div>
                     </Link>
@@ -37,7 +37,7 @@ function DetailProjectSidebar(props) {
                             <p className='text-xl mx-8'><b>Domain & SSL</b></p>
                         </div>
                     </Link> */}
-                    <div className=' absolute bottom-4 flex w-full items-center justify-center mt-4' onChange={handleLogout}>
+                    <div className=' absolute bottom-4 flex w-full items-center justify-center mt-4' onClick={handleLogout}>
                         <div className='rounded-xl hover:bg-[#786891] w-11/12 flex items-center justify-center'>
                             <img src={LogoutIcon} alt='logout'></img>
                             <p className='text-xl mx-8'><b>Logout</b></p>

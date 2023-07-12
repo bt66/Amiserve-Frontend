@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import HidePasswordIcon from "../assets/passwordHide.svg"
 import ShowPasswordIcon from "../assets/passwordShow.svg"
 import RegisterVector from "../assets/register_vector.svg"
 import axios from 'axios';
+import Loading from '../components/Loading';
+import AlertNotification from '../components/AlertNotification';
+
 function Registerpage() {
   // const { handleSubmit, register, formState: { errors } } = useForm();
   const { handleSubmit, register, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [hidePassword, setHidePassword] = useState(true);
   const [formPasswordType, setFormPasswordType] = useState("password");
+  const loadingRef = useRef();
+
+  const [openAlert, setOpenalert] = useState({
+    open: false,
+    message: "",
+    mode: ""
+  });
 
   const handleLogin = ((values) => {
     let data = JSON.stringify({
@@ -31,16 +41,27 @@ function Registerpage() {
     },
         data : data
     };
-        
+    loadingRef.current.classList.remove('hidden')
     axios.request(config)
     .then((response) => {
+        loadingRef.current.classList.add('hidden')
+        setOpenalert({
+            open: true,
+            message: "register success",
+            mode: "success"
+        })
         console.log(JSON.stringify(response.data));
         navigate("/login")
     })
     .catch((error) => {
+        setOpenalert({
+            open: true,
+            message: "register failed",
+            mode: "error"
+        })
+        loadingRef.current.classList.add('hidden')
         console.log(error);
     });
-      
     console.log(values);
 })
 
@@ -57,6 +78,12 @@ function Registerpage() {
   return (
     <div className='bg-[#330099] absolute w-full h-full text-white'>
         {/* login card container */}
+        <div ref={loadingRef} className="hidden">
+            <Loading/>
+        </div>
+        <AlertNotification open={openAlert.open} setOpen={setOpenalert} mode={openAlert.mode}>
+            <p>{openAlert.message}</p>
+        </AlertNotification>
         <div className='flex items-center justify-center w-screen h-screen md:justify-center md:p-10'>
             <div className='bg-[#9F49F5] p-1 rounded-3xl md:w-8/12 md:h-10/12 lg:max-w-xl'>
                 <div className='bg-[#41024B] rounded-3xl p-4 md:w-full md:h-full'>

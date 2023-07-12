@@ -17,10 +17,10 @@ function ProjectInfo({ formStep, nextFormStep }) {
     axios(config)
     .then(response => 
         {
-            setDataPacket(response.data.packet)
-            // setFeched(true)
-            console.log("ini data")
-            console.log(dataPacket)
+          setDataPacket(response.data.packet)
+          // setFeched(true)
+          console.log("ini data")
+          console.log(dataPacket)
             
         })
     .catch(function (error) {
