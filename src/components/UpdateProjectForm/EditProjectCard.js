@@ -5,7 +5,7 @@ import axios from 'axios';
 import Loading from '../Loading';
 
 // receive handleOpenModal, project data
-function UpdateProjectCard(props) {
+function EditProjectCard(props) {
 	const loadingRef = useRef();
 	const [domainMode, setDomainMode] = useState("false")
 
@@ -38,7 +38,7 @@ function UpdateProjectCard(props) {
 			let config = {
 				method: 'put',
 				maxBodyLength: Infinity,
-				url: `${process.env.REACT_APP_BACKEND_URL}/project/edit/${props.data._id}`,
+				url: `https://api.amiserv.cloud/project/edit/${props.data._id}`,
 				headers: { 
 					'Content-Type': 'application/json'
 				},
@@ -49,42 +49,15 @@ function UpdateProjectCard(props) {
 			props.setFetchState(true)
 			axios.request(config)
 			.then((response) => {
-				
-				let config = {
-					method: 'put',
-					maxBodyLength: Infinity,
-					url: `${process.env.REACT_APP_BACKEND_URL}/project/edit/status/${props.data._id}`,
-					headers: {
-					  'Content-Type': 'application/json'
-					},
-					data : {
-						status_id: "2"
-					}
-				};
-				props.setFetchState(true)
-				axios.request(config)
-				.then((response) => {
-					props.setNotification({
-						open: true,
-						message: "Update data success",
-						mode: "success"
-					})
-					props.setFetchState(false)
-					loadingRef.current.classList.add('hidden')
-					console.log(JSON.stringify(response.data));
-					props.handleOpenModal();
+				props.setNotification({
+					open: true,
+					message: "Update data success",
+					mode: "success"
 				})
-				.catch((error) => {
-					props.setNotification({
-						open: true,
-						message: "Update data failed",
-						mode: "error"
-					})
-					props.setFetchState(false)
-					loadingRef.current.classList.add('hidden')
-					console.log(error);
-				});
-
+				props.setFetchState(false)
+				loadingRef.current.classList.add('hidden')
+				console.log(JSON.stringify(response.data));
+				props.handleOpenModal();
 			})
 			.catch((error) => {
 				props.setNotification({
@@ -112,7 +85,8 @@ function UpdateProjectCard(props) {
 							<div className=''>
 									<div className='flex justify-between items-center'>
 											<div className='px-3'>
-												<p className='text-2xl lg:text-3xl font-bold'>Update Project</p>
+													
+												<p className='text-2xl lg:text-3xl font-bold'>Edit Project</p>
 											</div>
 											<div onClick={props.handleOpenModal}>
 													<img src={CloseIcon} alt='close Icon'></img>
@@ -120,8 +94,7 @@ function UpdateProjectCard(props) {
 									</div>
 									{/* content */}
 									<div className='p-3'>
-										{/* <p className='text-xl mt-3 lg:text-2xl'>Request Update Project</p> */}
-										<p className='text-sm mt-2 lg:text-xl'>If you need to request update without changing data on existing project, just click Request Update button</p>
+										<p className='text-sm mt-2 lg:text-xl'>Ensure to fill form correctly</p>
 									</div>
 									
 									<form onSubmit={handleSubmit(onSubmit)}>
@@ -225,4 +198,4 @@ function UpdateProjectCard(props) {
 	)
 }
 
-export default UpdateProjectCard
+export default EditProjectCard
