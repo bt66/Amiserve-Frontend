@@ -220,6 +220,12 @@ export default function AdminDetailProject() {
                     <div>
                       
                       <p className='text-2xl p-2 md:text-2xl'><b>{data.title}</b></p>
+                      <div className='px-3'>
+                        <div className='mt-1 lg:mt-3'>
+                          <p className='text-xl font-bold'>Project :</p>
+                          <li>Source code URL : {data.source_code_url}</li>
+                        </div>
+                      </div>
                       <div className='p-3'>
                         <div className='mt-1 lg:mt-3'>
                           <p className='text-xl font-bold'>Domain and SSL Information :</p>

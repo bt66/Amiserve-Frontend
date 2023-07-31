@@ -2,12 +2,18 @@ import React, { useState } from 'react'
 import HamburgerIcon from '../assets/hamburger.svg';
 import AmiserveLogo from '../assets/amiserv.svg'
 import CloseIcon from '../assets/close.svg'
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import OverviewIcon from "../assets/overview.svg"
 import Billing from "../assets/payment.svg"
 
 export default function UserHeader(props) {
+    const navigate = useNavigate()
     const [showSidebar, setShowSideBar] = useState(false);
+    const handleLogout = (event) => {
+        event.preventDefault();
+        localStorage.clear()
+        navigate('/')
+    }
     return (
         <div className='sticky top-0  z-10'>
             {/* sidebar mobile*/}
@@ -40,12 +46,12 @@ export default function UserHeader(props) {
                         </div>
                     </div>
                     <div className='absolute bottom-px w-full p-2'>
-                        <Link to={`/login`}>
+                        <Link to={`/user/profile`}>
                             <div className='cursor-pointer p-2 rounded-md my-4 border-2'>
                                 <p className='text-xl text-center'><b>Profile Setting</b></p>
                             </div>
                         </Link>
-                        <Link to={`/login`}>
+                        <Link to={`/login`} onClick={handleLogout}>
                             <div className='cursor-pointer p-2 bg-purple-700 hover:bg-purple-800 rounded-md my-4'>
                                 <p className='text-xl text-center'><b>Logout</b></p>
                             </div>

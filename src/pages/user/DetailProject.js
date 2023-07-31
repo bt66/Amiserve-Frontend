@@ -4,6 +4,7 @@ import UserHeader from '../../components/UserHeader'
 import DetailProjectSidebar from '../../components/DetailProjectSidebar'
 import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
 import UpdateProjectCard from '../../components/UpdateProjectForm/UpdateProjectCard';
+import EditProjectCard from '../../components/UpdateProjectForm/EditProjectCard';
 import DetailPaymentCard from '../../components/UpdateProjectForm/DetailPaymentCard';
 import ConfirmStopSubscribtion from '../../components/UpdateProjectForm/ConfirmStopSubscribtion';
 import { useNavigate } from 'react-router-dom';
@@ -19,11 +20,16 @@ function DetailProject() {
   const [fetched, setFeched] = useState(false);
   const params = useParams();
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEditProject, setOpenModalEditProject] = useState(false);
   const [openModalPayment, setOpenModalPayment] = useState(false);
   const [openModalStopSub, setOpenModalStopSub] = useState(false);
   const handleOpenModal = (event) => {
     // event.preventDefault();
     setOpenModal(!openModal);
+  }
+  const handleOpenModalEditProject = (event) => {
+    // event.preventDefault();
+    setOpenModalEditProject(!openModalEditProject);
 
   }
   const handleOpenModalPayment = (event) => {
@@ -97,6 +103,10 @@ function DetailProject() {
           {data ?  <UpdateProjectCard handleOpenModal={handleOpenModal} data={data} setFetchState={setFeched} setNotification={setOpenalert}></UpdateProjectCard> : <p>data doesn't ready</p>}
         
         </div>
+        <div className={openModalEditProject ? "block" : "hidden"}>
+          {data ?  <EditProjectCard handleOpenModal={handleOpenModalEditProject} data={data} setFetchState={setFeched} setNotification={setOpenalert}></EditProjectCard> : <p>data doesn't ready</p>}
+        
+        </div>
         <div className={openModalPayment ? "block" : "hidden"}>
           {data ?  <DetailPaymentCard handleOpenModal={handleOpenModalPayment} data={data}></DetailPaymentCard> : <p>data doesn't ready</p>}
         
@@ -111,6 +121,12 @@ function DetailProject() {
                     <div>
                       
                       <p className='text-2xl p-2 md:text-2xl'><b>{data.title}</b></p>
+                      <div className='px-3'>
+                        <div className='mt-1 lg:mt-3'>
+                          <p className='text-xl font-bold'>Project :</p>
+                          <li>Source code URL : {data.source_code_url}</li>
+                        </div>
+                      </div>
                       <div className='p-3'>
                         <div className='mt-1 lg:mt-3'>
                           <p className='text-xl font-bold'>Domain and SSL Information :</p>
@@ -129,13 +145,22 @@ function DetailProject() {
                           <li>Total : Rp.{data.packet.packet_price}</li>
                           <button className='bg-[#3C47A3] px-3 py-3 rounded-md m-2' onClick={handleOpenModalPayment}>Detail Payment</button>
                         </div>
-
-
                       </div>
                       <div className='p-3'>
                         <p className='text-xl md:text-2xl'><b>Action :</b></p>
                         <div>
-                          <button className='bg-[#3C47A3] px-3 py-3 rounded-md m-2' onClick={handleOpenModal}>Update Source Code</button>
+                          {
+                            data.transaction.transaction_status === "paid" ?
+                            <button className='bg-[#3C47A3] px-3 py-3 rounded-md m-2' onClick={handleOpenModal}>Request Update Project</button>
+                            :
+                            <p className='hidden'></p>
+                          }
+                          {
+                            data.transaction.transaction_status !== "paid" ?
+                            <button className='bg-[#3C47A3] px-3 py-3 rounded-md m-2' onClick={handleOpenModalEditProject}>Edit Project</button>
+                            :
+                            <p className='hidden'></p>
+                          }
                           <button className='bg-[#A33C3C] px-3 py-3 rounded-md m-2' onClick={handleOpenModalStopSubscribtion}>Stop subscribtion</button>
                         </div>
                       </div>
